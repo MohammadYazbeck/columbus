@@ -8,11 +8,16 @@ type Props = {
   params: {locale: Locale};
 };
 
+type CareerSlot = {
+  id: number;
+  translation: {title: string};
+};
+
 export default async function CareersPage({params}: Props) {
   const {locale} = params;
   const t = await getTranslations({locale, namespace: 'careers'});
   const tf = await getTranslations({locale, namespace: 'forms'});
-  const slots = await getCareerSlots(locale);
+  const slots = (await getCareerSlots(locale)) as CareerSlot[];
   const enableCaptcha = isCaptchaEnabled();
   const options = slots.map((slot) => ({
     id: slot.id,
