@@ -1,3 +1,4 @@
+import type {ComponentProps} from 'react';
 import type {Locale} from '@/src/i18n/routing';
 import {getBranches} from '@/src/lib/queries';
 import {BranchCard} from '@/src/components/sections/branch-card';
@@ -6,8 +7,10 @@ type Props = {
   params: {locale: Locale};
 };
 
+type Branch = ComponentProps<typeof BranchCard>['branch'];
+
 export default async function BranchesPage({params}: Props) {
-  const branches = await getBranches(params.locale);
+  const branches = (await getBranches(params.locale)) as Branch[];
 
   return (
     <div className="space-y-8">
