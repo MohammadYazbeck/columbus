@@ -106,13 +106,8 @@ export function Hero({ title, subtitle, cta, href, images, locale }: HeroProps) 
           isRtl ? 'justify-end' : 'justify-start'
         }`}
       >
-        <div
-          className="flex items-center gap-3 rounded-full border border-white/30 bg-white/12 px-5 py-2 text-white backdrop-blur-xl shadow-[0_20px_35px_rgba(0,0,0,0.35)]"
-          style={{
-            [isRtl ? 'marginRight' : 'marginLeft']: '-1.5rem'
-          }}
-        >
-          <div className="h-10 overflow-hidden rounded-full">
+        <div className="flex items-center gap-3 rounded-full border border-white/30 bg-white/12 px-5 py-2 text-white backdrop-blur-xl shadow-[0_20px_35px_rgba(0,0,0,0.35)]">
+          <div className="h-10  overflow-hidden rounded-full">
             <Image
               src="/badge.png"
               alt="Colombus"
@@ -133,7 +128,9 @@ export function Hero({ title, subtitle, cta, href, images, locale }: HeroProps) 
           <p className="text-[0.65rem] uppercase tracking-[0.4em] text-white/70 sm:text-xs">
             Colombus Reserve
           </p>
-          <h1 className="mt-3 text-2xl font-semibold sm:mt-4 sm:text-3xl lg:text-4xl">{title}</h1>
+          <h1 className="mt-3 text-2xl font-semibold sm:mt-4 sm:text-3xl lg:text-4xl">
+            {title}
+          </h1>
           <p className="mt-2 text-sm text-white/85 sm:text-base">{subtitle}</p>
           <Button
             asChild
