@@ -1,0 +1,54 @@
+{
+  "name": "colombus",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:generate": "prisma generate",
+    "prisma:seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
+    "@prisma/client": "^5.19.1",
+    "@radix-ui/react-slot": "^1.0.2",
+    "autoprefixer": "^10.4.16",
+    "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.0.10",
+    "lucide-react": "^0.428.0",
+    "mime-types": "^2.1.35",
+    "pg": "^8.11.3",
+    "next": "14.2.5",
+    "next-intl": "3.23.1",
+    "next-themes": "^0.3.0",
+    "postcss": "^8.4.35",
+    "prisma": "^5.19.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.51.5",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss": "^3.4.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.4",
+    "@types/react-dom": "^18.3.2",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.5",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.2",
+    "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4"
+  }
+}

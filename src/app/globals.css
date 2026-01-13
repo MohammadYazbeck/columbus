@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-urbanist: 'Urbanist';
+  --font-cairo: 'Cairo';
+  --background: 0 0% 100%;
+  --foreground: 225 15% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 222 47% 11%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --accent: 0 0% 98%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 222 47% 11%;
+  --radius: 0.75rem;
+}
+
+body {
+  background: radial-gradient(circle at top, #f9f6f1 0%, #ffffff 40%, #f0ebe3 100%);
+  color: #1a1614;
+  font-family: var(--font-urbanist), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+[dir='rtl'] body {
+  font-family: var(--font-cairo), var(--font-urbanist), sans-serif;
+}

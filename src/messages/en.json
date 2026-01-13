@@ -1,0 +1,89 @@
+{
+  "navigation": {
+    "home": "Home",
+    "categories": "Products",
+    "products": "Products",
+    "branches": "Branches",
+    "about": "About",
+    "contact": "Contact",
+    "careers": "Careers",
+    "catalog": "Catalog"
+  },
+  "hero": {
+    "title": "Colombus Reserve Coffee",
+    "subtitle": "A celebration of Syrian craftsmanship blending heritage beans with contemporary roasting artistry.",
+    "cta": "Explore Collections"
+  },
+  "home": {
+    "featured": "Featured Creations",
+    "categoriesTitle": "Browse by Category",
+    "story": "Every roast is balanced with decadent cocoa aromas, silky textures, and an unforgettable finish.",
+    "availabilityActive": "Available",
+    "availabilityInactive": "Unavailable"
+  },
+  "buttons": {
+    "view": "View",
+    "details": "Details",
+    "submit": "Submit",
+    "apply": "Apply",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create",
+    "upload": "Upload"
+  },
+  "contact": {
+    "title": "Contact Colombus",
+    "description": "We would love to hear from you. Share your ideas, feedback, or invite us to collaborate.",
+    "addressLabel": "Address",
+    "phoneLabel": "Phone",
+    "mobileLabel": "Mobile",
+    "emailLabel": "Email"
+  },
+  "careers": {
+    "title": "Join Colombus",
+    "description": "We are always searching for passionate people to elevate Syrian coffee culture.",
+    "selectRole": "Select a role",
+    "placeholder": "Choose a position"
+  },
+  "footer": {
+    "tagline": "Colombus • Damascus Garden Plaza • Crafted with devotion."
+  },
+  "forms": {
+    "name": "Full name",
+    "email": "Email",
+    "title": "Subject",
+    "message": "Message",
+    "captcha": "Captcha placeholder",
+    "job": {
+      "fullName": "Full name",
+      "birthDate": "Birthdate",
+      "bornCity": "Birth city",
+      "sex": "Sex",
+      "nationality": "Nationality",
+      "phoneNumber": "Phone number",
+      "socialState": "Social state",
+      "cv": "Upload CV"
+    }
+  },
+  "admin": {
+    "login": "Admin Login",
+    "username": "Username",
+    "password": "Password",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "stats": {
+      "products": "Products",
+      "contact": "Contact Requests",
+      "jobs": "Job Applications"
+    },
+    "sections": {
+      "categories": "Categories",
+      "products": "Products",
+      "branches": "Branches",
+      "careers": "Career Slots",
+      "contact": "Contact Submissions",
+      "jobs": "Job Applications"
+    }
+  }
+}

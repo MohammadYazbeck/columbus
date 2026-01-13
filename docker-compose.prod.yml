@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: colombus-web
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_APP_URL: https://colombus.axiom.onl
+      UPLOAD_DIR: /data/uploads
+    volumes:
+      - /srv/uploads/colombus:/data/uploads
+    depends_on:
+      - db
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.colombus.rule=Host(`colombus.axiom.onl`,`www.colombus.axiom.onl`)"
+      - "traefik.http.routers.colombus.entrypoints=websecure"
+      - "traefik.http.routers.colombus.tls=true"
+      - "traefik.http.routers.colombus.tls.certresolver=lets"
+      - "traefik.http.services.colombus.loadbalancer.server.port=3000"
+
+  db:
+    image: postgres:16-alpine
+    container_name: colombus-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - colombus-db-data:/var/lib/postgresql/data
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
+
+volumes:
+  colombus-db-data:
