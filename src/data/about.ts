@@ -33,8 +33,7 @@ export const aboutNarrative: Record<Locale, string[]> = {
 export const aboutHighlights = [
   {
     id: 'legacy',
-    image:
-      'https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=1200&q=80',
+    image: '/about/about-01.jpg',
     title: {
       en: 'European Legacy & Multi-brand Power',
       ar: 'إرث أوروبي ومحفظة علامات قوية'
@@ -46,8 +45,7 @@ export const aboutHighlights = [
   },
   {
     id: 'expansion',
-    image:
-      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80',
+    image: '/about/about-02.jpg',
     title: {
       en: 'Middle East Expansion & Innovation',
       ar: 'التوسع في الشرق الأوسط والابتكار'
@@ -59,7 +57,7 @@ export const aboutHighlights = [
   },
   {
     id: 'strategy',
-    image: 'https://cdn.pixabay.com/photo/2016/08/07/16/28/coffee-1576552_1280.jpg',
+    image: '/about/about-03.jpg',
     title: {
       en: 'Three Strategic Growth Pillars',
       ar: 'ثلاثة محاور استراتيجية للنمو'
