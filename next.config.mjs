@@ -13,11 +13,13 @@ const config = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com'
+        hostname: 'images.unsplash.com',
+        pathname: '/**'
       },
       {
         protocol: 'https',
-        hostname: 'cdn.pixabay.com'
+        hostname: 'cdn.pixabay.com',
+        pathname: '/**'
       }
     ]
   }
