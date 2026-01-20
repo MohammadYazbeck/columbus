@@ -4,29 +4,29 @@ type Translated = Record<Locale, string>;
 
 export const aboutIntro = {
   welcome: {
-    en: 'Welcome',
-    ar: 'أهلاً بكم'
+    en: 'Welcome to the Coffeehouse',
+    ar: 'أهلاً بكم في المقهى'
   } as Translated,
   title: {
     en: 'Colombus Coffee',
     ar: 'قهوة كولومبوس'
   } as Translated,
   lead: {
-    en: 'Colombus is the leading coffee roasting, packaging, and grinding house that began its journey in Milan in 1990 before relocating to Bucharest in 1992. From the very beginning, our King, San Cristobal, Kenana, and Colombus labels set out to merge commercial acumen with artisanal roasting excellence.',
-    ar: 'تُعد كولومبوس الشركة الرائدة في تحميص وتعبئة وطحن القهوة؛ وقد بدأت مسيرتها في ميلانو عام 1990 وانتقلت إلى بوخارست عام 1992. منذ الانطلاقة الأولى، سعت علامات كينغ وسان كريستوبال وكنانة وكولومبوس إلى الجمع بين الخبرة التجارية والتميّز الحرفي في التحميص.'
+    en: 'Since 1990 in Milan, we’ve been roasting with care, then carried that ritual to Bucharest in 1992. Our King, San Cristobal, Kenana, and Colombus labels were created to deliver coffeehouse warmth, consistent quality, and business confidence in every cup.',
+    ar: 'منذ عام 1990 في ميلانو نُحمّص القهوة بعناية، ثم نقلنا هذا الطقس إلى بوخارست عام 1992. صُممت علامات كينغ وسان كريستوبال وكنانة وكولومبوس لتقدّم دفء المقهى وجودة ثابتة وثقة تجارية في كل كوب.'
   } as Translated
 };
 
 export const aboutNarrative: Record<Locale, string[]> = {
   en: [
-    'What started as a single company soon became a portfolio that mastered both commercial and industrial coffee ventures. Colombus quickly dominated the Romanian market before exporting to Eastern and Western Europe, proving that a Damascus-inspired palette could delight global audiences.',
-    'In 2001 we strategically expanded into the Middle East, inaugurating our first roasting, packaging, and grinding facility in Syria alongside fresh coffee boutiques and cafés under the Colombus moniker. We were pioneers in bringing hot chocolate, cappuccino, orchid drinks, espresso, decaf, American coffee, and French coffee to local consumers—then exporting those flavors worldwide.',
-    'Today our marketing strategy is built on three synchronized pillars: ready-to-prepare coffee and beverage distribution, a network of fresh-coffee retail branches, and the experiential Colombus coffee chain. Together, they ensure the Colombus promise reaches business owners and discerning guests alike.'
+    'We started with a single roastery and a simple promise: serve coffee that feels calm, familiar, and refined. Each cup is built on balance and a clean finish.',
+    'In 2001, our Middle East roastery opened in Syria, alongside boutique cafes. We served espresso classics with quiet precision and a warm welcome.',
+    'Today, ready-to-craft beverages, fresh-coffee retail, and Colombus coffeehouses work as one—elegant, consistent, and built to last.'
   ],
   ar: [
-    'ما بدأ كشركة واحدة سرعان ما تحوّل إلى محفظة متكاملة تجمع بين الأنشطة التجارية والصناعية في عالم القهوة. سيطرت كولومبوس سريعاً على السوق الرومانية قبل أن تبدأ بالتصدير إلى أوروبا الشرقية والغربية، لتثبت أن الذائقة المستوحاة من دمشق قادرة على إبهار العالم.',
-    'في عام 2001 توسعنا استراتيجياً نحو الشرق الأوسط، حيث افتتحنا أول مصنع للتحميص والتعبئة والطحن في سوريا بالتزامن مع إطلاق فروع القهوة الطازجة والمقاهي تحت اسم كولومبوس. كنا من الأوائل في تقديم الشوكولا الساخنة والكابتشينو ومشروب السحلب والإسبريسو والقهوة الخالية من الكافيين والأمريكية والفرنسية إلى السوق المحلية، ثم قمنا بتصديرها إلى أنحاء العالم.',
-    'تعتمد استراتيجيتنا التسويقية اليوم على ثلاثة محاور متناغمة: توزيع القهوة والمشروبات الجاهزة للتحضير، شبكة فروع لبيع القهوة الطازجة، وسلسلة مقاهي كولومبوس التجريبية. معاً، تضمن هذه المحاور وصول وعد كولومبوس إلى أصحاب الأعمال والضيوف المميزين.'
+    'بدأنا بمحمصة واحدة ووعد بسيط: قهوة هادئة، مألوفة، وراقية. كل كوب قائم على توازن ونهاية نقية.',
+    'في عام 2001 افتتحنا موطن التحميص في الشرق الأوسط بسوريا، إلى جانب بوتيكات ومقاهٍ مختارة. قدّمنا كلاسيكيات الإسبريسو بدقة ودفء.',
+    'اليوم تعمل المشروبات الجاهزة للتحضير، ومتاجر القهوة الطازجة، ومقاهي كولومبوس كتجربة واحدة—أنيقة، ثابتة، وممتدة.'
   ]
 };
 
@@ -35,36 +35,36 @@ export const aboutHighlights = [
     id: 'legacy',
     image: '/about/about-01.jpg',
     title: {
-      en: 'European Legacy & Multi-brand Power',
-      ar: 'إرث أوروبي ومحفظة علامات قوية'
+      en: 'A Ritual Born in Milan',
+      ar: 'طقس وُلد في ميلانو'
     } as Translated,
     description: {
-      en: 'Founded in Milan and anchored in Bucharest, Colombus elevated the King, San Cristobal, Kenana, and Colombus brands into one powerhouse that fused commercial precision with industrial craftsmanship.',
-      ar: 'انطلقت كولومبوس من ميلانو وترسخت في بوخارست، لترفع علامات كينغ وسان كريستوبال وكنانة وكولومبوس إلى قوة واحدة تجمع الدقة التجارية بالمهارة الصناعية.'
+      en: 'From Milan to Bucharest, four labels were shaped to deliver coffeehouse warmth with commercial consistency. Each blend is designed to feel familiar, inviting, and dependable from the first sip to the last.',
+      ar: 'من ميلانو إلى بوخارست، صُممت أربع علامات لتمنح دفء المقهى مع موثوقية تجارية. كل خلطة صُممت لتكون مألوفة ودافئة وموثوقة من أول رشفة حتى آخرها.'
     } as Translated
   },
   {
     id: 'expansion',
     image: '/about/about-02.jpg',
     title: {
-      en: 'Middle East Expansion & Innovation',
-      ar: 'التوسع في الشرق الأوسط والابتكار'
+      en: 'A Roastery Home in Syria',
+      ar: 'موطن التحميص في سوريا'
     } as Translated,
     description: {
-      en: 'By 2001 our roasting, packaging, and grinding campus in Syria ushered in a new era. Colombus boutiques introduced regional markets to hot chocolate, cappuccino, orchid drinks, espresso, decaf, American, and French coffee.',
-      ar: 'مع عام 2001 دشّن مجمّع التحميص والتعبئة والطحن في سوريا عصراً جديداً؛ إذ قدّمت بوتيكات كولومبوس للأسواق الإقليمية الشوكولا الساخنة والكابتشينو والسحلب والإسبريسو والقهوة الخالية من الكافيين والأمريكية والفرنسية.'
+      en: 'Our Syrian campus brought roasting and packaging closer to guests, while boutique cafes served espresso favorites with a warm welcome. The experience is built on fresh aroma, fast service, and a barista touch.',
+      ar: 'قرّب مجمّعنا في سوريا التحميص والتعبئة إلى الضيوف، بينما قدّمت البوتيكات والمقاهي كلاسيكيات الإسبريسو بترحيب دافئ. بُنيت التجربة على رائحة طازجة وخدمة سريعة ولمسة باريستا.'
     } as Translated
   },
   {
     id: 'strategy',
     image: '/about/about-03.jpg',
     title: {
-      en: 'Three Strategic Growth Pillars',
-      ar: 'ثلاثة محاور استراتيجية للنمو'
+      en: 'Three Experiences, One Promise',
+      ar: 'ثلاث تجارب، وعد واحد'
     } as Translated,
     description: {
-      en: 'Ready-to-prepare beverages, fresh-coffee retail branches, and Colombus coffee houses form a unified revenue engine designed for business owners who expect memorable, profitable experiences.',
-      ar: 'المشروبات الجاهزة للتحضير وفروع القهوة الطازجة وسلسلة مقاهي كولومبوس تشكل معاً محركاً موحداً للإيرادات صُمم لروّاد الأعمال الذين يبحثون عن تجارب ربحية لا تُنسى.'
+      en: 'Ready drinks, fresh coffee retail, and coffeehouses come together to keep guests returning and owners growing. One promise shows up in every store, counter, and cup.',
+      ar: 'المشروبات الجاهزة ومتاجر القهوة الطازجة والمقاهي تتحد لتُبقي الضيوف قريبين وأصحاب الأعمال في نمو مستمر. وعد واحد يظهر في كل فرع وكل منضدة وكل كوب.'
     } as Translated
   }
 ] as const;
@@ -72,32 +72,32 @@ export const aboutHighlights = [
 export const aboutPillars = [
   {
     title: {
-      en: 'Rapid Beverage Distribution',
-      ar: 'توزيع المشروبات السريعة'
+      en: 'Ready-To-Craft Beverages',
+      ar: 'مشروبات جاهزة للتحضير'
     } as Translated,
     detail: {
-      en: 'Supplying coffee beans, capsules, and instant hot or cold drinks engineered for high-volume venues.',
-      ar: 'تزويد الحبوب والكبسولات والمشروبات الساخنة أو الباردة الجاهزة للمرافق ذات الاستهلاك العالي.'
+      en: 'Fast-serve drinks and beans that keep the coffee ritual consistent in high-volume venues.',
+      ar: 'مشروبات سريعة التقديم وحبوب تحافظ على طقس القهوة ثابتاً في المواقع ذات الإقبال العالي.'
     } as Translated
   },
   {
     title: {
-      en: 'Fresh Coffee Branches',
-      ar: 'فروع القهوة الطازجة'
+      en: 'Fresh Coffee Boutique',
+      ar: 'بوتيك القهوة الطازجة'
     } as Translated,
     detail: {
-      en: 'Boutiques that roast, grind, and personalize blends on-site for premium hospitality concepts.',
-      ar: 'بوتيكات تقوم بالتحميص والطحن والمزج حسب الطلب في الموقع لخدمة مشاريع الضيافة الراقية.'
+      en: 'On-site roasting and grinding with blends tailored to each hospitality concept.',
+      ar: 'تحميص وطحن في الموقع مع خلطات مخصصة لكل مفهوم ضيافة.'
     } as Translated
   },
   {
     title: {
-      en: 'Colombus Coffee Chain',
-      ar: 'سلسلة مقاهي كولومبوس'
+      en: 'Colombus Coffeehouse',
+      ar: 'مقهى كولومبوس'
     } as Translated,
     detail: {
-      en: 'Immersive cafés that showcase our beverages, staffing standards, and profitable franchise playbooks.',
-      ar: 'مقاهٍ غامرة تستعرض مشروباتنا ومعايير فرق العمل وكتيبات الامتياز المربحة.'
+      en: 'Signature cafes, barista standards, and a playbook that helps owners grow with confidence.',
+      ar: 'مقاهٍ بتجربة مميزة ومعايير باريستا واضحة ودليل يساعد أصحاب الأعمال على النمو بثقة.'
     } as Translated
   }
 ] as const;

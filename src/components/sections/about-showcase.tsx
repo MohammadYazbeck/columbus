@@ -42,8 +42,8 @@ export function AboutShowcase({ locale }: Props) {
   ];
 
   return (
-    <section className="relative overflow-hidden rounded-[44px]  p-6 text-primary md:p-14">
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white/60 to-transparent" />
+    <section className="relative overflow-hidden rounded-[44px] border border-[#efe7df] bg-white/90 p-6 text-primary shadow-[0_40px_90px_rgba(15,10,6,0.08)] md:p-14">
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#f7f2ec] to-transparent" />
       <div className="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <motion.div
           variants={fadeIn}
@@ -52,7 +52,7 @@ export function AboutShowcase({ locale }: Props) {
           viewport={{ amount: 0.4 }}
           className="space-y-6"
         >
-          <p className="text-sm uppercase tracking-[0.5em] text-muted-foreground">
+          <p className="text-sm uppercase tracking-[0.5em] text-[#aa1d1d]">
             {aboutIntro.welcome[lang]}
           </p>
           <h2 className="text-5xl font-semibold tracking-tight text-primary md:text-6xl">
@@ -60,23 +60,29 @@ export function AboutShowcase({ locale }: Props) {
           </h2>
           <p className="text-lg text-muted-foreground">{aboutIntro.lead[lang]}</p>
           <div className="flex flex-wrap gap-4">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl border border-white/30 bg-white/80 px-6 py-4 shadow-sm"
-              >
-                <p className="text-3xl font-semibold text-primary">{stat.value}</p>
-                <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+            {stats.map((stat, index) => {
+              return (
+                <div
+                  key={stat.label}
+                  className="rounded-2xl border border-[#efe7df] border-t-2 border-t-[#aa1d1d] bg-white px-6 py-4"
+                >
+                  <p className="text-3xl font-semibold text-[#aa1d1d]">
+                    {stat.value}
+                  </p>
+                  <p
+                    className="text-xs uppercase tracking-[0.35em] text-muted-foreground"
+                  >
+                    {stat.label}
+                  </p>
+                </div>
+              );
+            })}
           </div>
           <Link
             href={`/${locale}/about`}
             className="inline-flex w-max items-center gap-2 rounded-full border border-[#aa1d1d] px-7 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#aa1d1d] transition hover:bg-[#aa1d1d]/10"
           >
-            {lang === 'ar' ? 'القصة كاملة' : 'Full story'}
+            {lang === 'ar' ? 'قصتنا' : 'Our story'}
             <span aria-hidden>↗</span>
           </Link>
         </motion.div>
@@ -96,7 +102,7 @@ export function AboutShowcase({ locale }: Props) {
               initial="hidden"
               whileInView="show"
               viewport={{ amount: 0.4 }}
-              className={`absolute rounded-[28px] border border-white/25 shadow-[0_30px_60px_rgba(0,0,0,0.15)] ${
+              className={`absolute rounded-[28px] border border-[#efe7df] bg-white shadow-[0_30px_60px_rgba(15,10,6,0.18)] ${
                 index === 0
                   ? 'inset-x-0 top-0 h-[230px]'
                   : index === 1
@@ -121,7 +127,7 @@ export function AboutShowcase({ locale }: Props) {
         initial="hidden"
         whileInView="show"
         viewport={{ amount: 0.4 }}
-        className="mt-10 rounded-[28px] border border-white/25 bg-white/80 p-6 text-base text-muted-foreground shadow-sm"
+        className="mt-10 rounded-[28px] border border-[#efe7df] border-l-4 border-l-[#aa1d1d] bg-white p-6 text-base text-muted-foreground"
       >
         {narrative}
       </motion.p>

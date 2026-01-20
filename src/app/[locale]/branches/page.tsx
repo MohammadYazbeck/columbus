@@ -16,12 +16,12 @@ export default async function BranchesPage({params}: Props) {
     <div className="space-y-8">
       <header>
         <h1 className="text-4xl font-semibold text-primary">
-          {params.locale === 'ar' ? 'فروع كولومبوس' : 'Colombus Branches'}
+          {params.locale === 'ar' ? 'مقاهي كولومبوس' : 'Colombus Coffeehouses'}
         </h1>
         <p className="text-muted-foreground">
           {params.locale === 'ar'
-            ? 'أماكن مختارة لتجربة القهوة الفاخرة في سوريا.'
-            : 'Flagship houses crafted for slow luxury coffee rituals.'}
+            ? 'مساحات دافئة لطقوس القهوة الهادئة واللقاءات واللحظات المصنوعة بحب.'
+            : 'Warm spaces for slow coffee rituals, conversations, and handcrafted moments.'}
         </p>
       </header>
       <div className="space-y-8">
