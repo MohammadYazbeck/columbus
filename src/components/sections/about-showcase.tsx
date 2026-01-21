@@ -42,8 +42,8 @@ export function AboutShowcase({ locale }: Props) {
   ];
 
   return (
-    <section className="relative overflow-hidden rounded-[44px] border border-[#efe7df] bg-white/90 p-6 text-primary shadow-[0_40px_90px_rgba(15,10,6,0.08)] md:p-14">
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#f7f2ec] to-transparent" />
+    <section className="relative overflow-hidden rounded-[18px] border border-[#efe7df] bg-[#fdf7f2] p-6 text-primary shadow-[0_40px_90px_rgba(15,10,6,0.08)] md:p-14">
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#f2ebe3] to-transparent" />
       <div className="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <motion.div
           variants={fadeIn}
@@ -66,12 +66,8 @@ export function AboutShowcase({ locale }: Props) {
                   key={stat.label}
                   className="rounded-2xl border border-[#efe7df] border-t-2 border-t-[#aa1d1d] bg-white px-6 py-4"
                 >
-                  <p className="text-3xl font-semibold text-[#aa1d1d]">
-                    {stat.value}
-                  </p>
-                  <p
-                    className="text-xs uppercase tracking-[0.35em] text-muted-foreground"
-                  >
+                  <p className="text-3xl font-semibold text-[#aa1d1d]">{stat.value}</p>
+                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
                     {stat.label}
                   </p>
                 </div>

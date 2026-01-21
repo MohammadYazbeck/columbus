@@ -18,62 +18,85 @@ type Props = {
 };
 
 export function BranchCard({branch}: Props) {
+  const rawEmbed = branch.googleEmbedUrl?.trim();
+  const iframeMatch = rawEmbed?.match(/src="([^"]+)"/i);
+  const cleanedEmbed = iframeMatch ? iframeMatch[1] : rawEmbed;
+  const isEmbedUrl =
+    cleanedEmbed?.includes('/maps/embed') || cleanedEmbed?.includes('output=embed');
+  const mapSrc = isEmbedUrl
+    ? cleanedEmbed
+    : `https://www.google.com/maps?q=${encodeURIComponent(
+        branch.translation.address
+      )}&output=embed`;
+
   return (
-    <div className="rounded-[28px] border border-[#efe7df] bg-white">
-      <div className="grid gap-6 p-6 lg:grid-cols-2">
-        <div className="space-y-5">
-          <div className="relative h-60 overflow-hidden rounded-[22px] border border-[#f2ebe4] bg-[#f8f4ef] shadow-[0_18px_40px_rgba(12,8,6,0.12)]">
-            <Image
-              src={asUploadUrl(branch.imagePath) ?? '/fallback-product.svg'}
-              alt={branch.translation.name}
-              fill
-              className="object-cover transition duration-700 hover:scale-105"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-5 pb-4 pt-10 text-white">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/70">Colombus</p>
-              <h3 className="text-2xl font-semibold">{branch.translation.name}</h3>
-            </div>
+    <div className="overflow-hidden rounded-[22px] border border-[#efe7df] bg-[#fdf7f2] shadow-[0_30px_70px_rgba(12,8,6,0.08)]">
+      <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative min-h-[260px]">
+          <Image
+            src={asUploadUrl(branch.imagePath) ?? '/fallback-product.svg'}
+            alt={branch.translation.name}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent px-6 pb-5 pt-12 text-white">
+            <p className="text-xs uppercase tracking-[0.35em] text-white/70">
+              Colombus Coffeehouse
+            </p>
+            <h3 className="text-2xl font-semibold">{branch.translation.name}</h3>
           </div>
-          <p className="text-sm text-muted-foreground">{branch.translation.address}</p>
-          <div className="grid gap-2 text-sm text-primary">
+        </div>
+
+        <div className="flex h-full flex-col gap-6 p-6">
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#aa1d1d]">
+              {branch.translation.name}
+            </p>
+            <p className="text-sm text-muted-foreground">{branch.translation.address}</p>
+          </div>
+
+          <div className="grid gap-2 text-sm text-primary/80">
             {branch.phone && (
-              <p className="rounded-[18px] border border-[#efe7df] bg-[#faf7f3] px-4 py-2">
-                ☎ {branch.phone}
+              <p className="flex items-center gap-2">
+                <span className="text-[#aa1d1d]">☎</span>
+                {branch.phone}
               </p>
             )}
             {branch.mobile && (
-              <p className="rounded-[18px] border border-[#efe7df] bg-[#faf7f3] px-4 py-2">
-                📱 {branch.mobile}
+              <p className="flex items-center gap-2">
+                <span className="text-[#aa1d1d]">📱</span>
+                {branch.mobile}
               </p>
             )}
             {branch.email && (
-              <p className="rounded-[18px] border border-[#efe7df] bg-[#faf7f3] px-4 py-2">
-                ✉ {branch.email}
+              <p className="flex items-center gap-2">
+                <span className="text-[#aa1d1d]">✉</span>
+                {branch.email}
               </p>
             )}
           </div>
+
           {branch.directionsUrl && (
             <a
               href={branch.directionsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#aa1d1d] underline-offset-4 hover:underline"
+              className="inline-flex w-max items-center gap-2 rounded-full border border-[#aa1d1d] px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-[#aa1d1d] transition hover:bg-[#aa1d1d]/10"
             >
               {branch.directionsUrl.includes('maps') ? 'Open in Maps' : 'Get directions'}
-              <span className="h-px w-6 bg-current" />
             </a>
           )}
-        </div>
 
-        <div className="rounded-[22px] border border-[#efe7df] bg-[#fdfbf8] p-2">
-          <iframe
-            src={branch.googleEmbedUrl}
-            title={branch.translation.name}
-            loading="lazy"
-            className="h-72 w-full rounded-[18px]"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <div className="mt-auto rounded-[18px] border border-[#efe7df] bg-white p-2">
+            <iframe
+              src={mapSrc}
+              title={branch.translation.name}
+              loading="lazy"
+              className="h-64 w-full rounded-[14px]"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </div>
     </div>

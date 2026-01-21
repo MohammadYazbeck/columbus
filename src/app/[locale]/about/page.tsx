@@ -24,42 +24,27 @@ export default function AboutPage({ params }: Props) {
   const lang = locale === 'ar' ? 'ar' : 'en';
 
   return (
-    <div className="space-y-16 text-primary">
+    <div className="space-y-10 text-primary">
       <motion.section
         variants={fade}
         initial="hidden"
-        animate="show"
-        className="grid gap-8 rounded-[28px] border border-[#efe7df] bg-white/90 p-8 text-primary shadow-[0_55px_100px_rgba(0,0,0,0.08)] md:grid-cols-[1.15fr_0.85fr] md:p-12"
+        whileInView="show"
+        viewport={{ amount: 0.1 }}
+        className="rounded-[28px] bg-black/90 p-8 text-[#fdf7f2] shadow-[0_55px_100px_rgba(0,0,0,0.1)] md:p-12"
       >
         <div className="space-y-4">
-          <p className="text-sm uppercase tracking-[0.5em] text-[#aa1d1d]">
+          <p className="text-sm uppercase tracking-[0.5em] text-[#FF0000]">
             {aboutIntro.welcome[lang]}
           </p>
-          <h1 className="text-5xl font-semibold md:text-6xl">{aboutIntro.title[lang]}</h1>
-          <p className="text-lg text-muted-foreground">{aboutIntro.lead[lang]}</p>
-          <div className="grid gap-3 text-base text-muted-foreground md:grid-cols-3">
-            <div>
-              <p className="text-3xl font-semibold text-primary">1990</p>
-              <p>{lang === 'ar' ? 'ميلانو' : 'Milan origin'}</p>
-            </div>
-            <div>
-              <p className="text-3xl font-semibold text-primary">2001</p>
-              <p>{lang === 'ar' ? 'المصنع الإقليمي' : 'Regional campus'}</p>
-            </div>
-            <div>
-              <p className="text-3xl font-semibold text-primary">+30</p>
-              <p>{lang === 'ar' ? 'عاماً من التوسع' : 'years scaling'}</p>
-            </div>
-          </div>
-        </div>
-        <div className="relative overflow-hidden rounded-[18px]">
-          <Image
-            src={aboutHighlights[0].image}
-            alt={aboutHighlights[0].title[lang]}
-            fill
-            sizes="(max-width:768px) 100vw, 40vw"
-            className="object-cover"
-          />
+          <h1 className="text-5xl font-semibold text-[#ffffff] md:text-6xl">
+            {aboutIntro.title[lang]}
+          </h1>
+          <blockquote className="rounded-[14px] border border-amber-100/20 bg-black px-6 py-5 text-base italic leading-relaxed text-[#fdf7f2] ">
+            {aboutIntro.lead[lang]}
+            <span className="mt-3 block text-xs font-semibold uppercase tracking-[0.3em] text-[#fdf7f2]">
+              {lang === 'ar' ? 'كولومبوس' : 'Colombus Roastery'}
+            </span>
+          </blockquote>
         </div>
       </motion.section>
 
@@ -67,8 +52,8 @@ export default function AboutPage({ params }: Props) {
         variants={fade}
         initial="hidden"
         whileInView="show"
-        viewport={{ amount: 0.3 }}
-        className="space-y-10 rounded-[26px] p-6 md:p-10"
+        viewport={{ amount: 0.1 }}
+        className="space-y-10 rounded-[26px] p-6 md:p-10 -mx-4 sm:mx-0"
       >
         {aboutHighlights.map((highlight, index) => {
           const isReversed = index % 2 === 1;
@@ -77,25 +62,16 @@ export default function AboutPage({ params }: Props) {
             <motion.div
               key={highlight.id}
               variants={fade}
-              className={`flex flex-col  rounded-lg gap-6 sm:rounded-[18px]  md:flex md:items-stretch md:gap-0 ${
-                isReversed ? 'md:flex-row-reverse' : 'md:flex-row'
-              } ${
+              className={`grid overflow-hidden rounded-[18px]  md:grid-cols-2 ${
                 isFilled
-                  ? 'border-[#aa1d1d]/40 bg-[#aa1d1d] text-[#fdf7f2] '
-                  : 'border-[#efe7df] bg-[#fdf7f2]  text-[#aa1d1d]'
+                  ? 'border-[#FF0000]/40 bg-[#FF0000] text-[#fdf7f2]'
+                  : 'border-[#efe7df] bg-[#fdf7f2] text-[#FF0000]'
               }`}
             >
               <div
-                className={`relative h-80 w-full overflow-hidden rounded-t-lg shadow-[0_28px_70px_rgba(15,10,6,0.18)]
-  sm:rounded-t-none
-  md:h-[22rem] md:w-1/2
-  lg:h-[26rem]
-  ${
-    (isReversed && lang === 'ar') || (!isReversed && lang === 'en')
-      ? 'sm:rounded-l-[16px] md:rounded-l-[18px]'
-      : 'sm:rounded-r-[16px] md:rounded-r-[18px]'
-  }
-`}
+                className={`relative order-1 min-h-[18rem] w-full md:min-h-[22rem] lg:min-h-[26rem] ${
+                  isReversed ? 'md:order-2' : 'md:order-1'
+                }`}
               >
                 <Image
                   src={highlight.image}
@@ -105,12 +81,16 @@ export default function AboutPage({ params }: Props) {
                   className="object-cover"
                 />
               </div>
-              <div className="w-full space-y-3 px-4 pb-6 pt-2 md:w-1/2 md:px-8 md:py-10">
+              <div
+                className={`order-2 flex w-full flex-col justify-center space-y-3 px-6 pb-6 pt-4 md:px-10 md:py-10 ${
+                  isReversed ? 'md:order-1' : 'md:order-2'
+                }`}
+              >
                 <p
                   className={
                     isFilled
                       ? 'text-xs uppercase tracking-[0.35em] text-[#fdf7f2] '
-                      : 'text-xs uppercase tracking-[0.35em] text-[#aa1d1d]'
+                      : 'text-xs uppercase tracking-[0.35em] text-[#FF0000]'
                   }
                 >
                   {String(index + 1).padStart(2, '0')}
@@ -118,7 +98,7 @@ export default function AboutPage({ params }: Props) {
                 <h2 className="text-2xl font-semibold">{highlight.title[lang]}</h2>
                 <p
                   className={
-                    isFilled ? 'text-sm text-[#fdf7f2]/90' : 'text-sm text-[#aa1d1d]/80'
+                    isFilled ? 'text-sm text-[#fdf7f2]/90' : 'text-sm text-[#FF0000]/80'
                   }
                 >
                   {highlight.description[lang]}
@@ -134,16 +114,16 @@ export default function AboutPage({ params }: Props) {
         initial="hidden"
         whileInView="show"
         viewport={{ amount: 0.3 }}
-        className="space-y-8   p-7 text-sm text-muted-foreground  md:p-12"
+        className="space-y-8 p-7 text-sm text-muted-foreground md:p-12 -mx-4 sm:mx-0"
       >
         {aboutNarrative[lang].map((paragraph, index) => {
           return (
             <motion.div
               key={index}
               variants={fade}
-              className="flex items-start gap-5 rounded-[14px] border border-[#eadfd3] border-l-4 border-l-[#aa1d1d] bg-[#fff5f1] p-6 md:p-8"
+              className="flex items-start gap-5 rounded-[14px] border border-[#eadfd3] border-l-4 border-l-[#FF0000] bg-[#fff5f1] p-6 md:p-8"
             >
-              <div className="flex min-h-10 min-w-10 items-center justify-center rounded-full border border-[#aa1d1d]/30 bg-[#fff5f1] text-xs font-semibold tracking-[0.3em] text-[#aa1d1d]">
+              <div className="flex min-h-10 min-w-10 items-center justify-center rounded-full border border-[#FF0000]/30 bg-[#fff5f1] text-xs font-semibold tracking-[0.3em] text-[#FF0000]">
                 {String(index + 1).padStart(2, '0')}
               </div>
               <p className="text-base leading-relaxed text-primary/80 md:text-lg">
@@ -159,11 +139,11 @@ export default function AboutPage({ params }: Props) {
         initial="hidden"
         whileInView="show"
         viewport={{ amount: 0.3 }}
-        className="rounded-[20px] border border-[#efe7df] bg-[#fdf7f2] p-6 text-primary shadow-[0_35px_70px_rgba(0,0,0,0.08)] md:p-10"
+        className="rounded-[20px] border border-[#efe7df] bg-black p-6 text-[#fdf7f2] shadow-[0_35px_70px_rgba(0,0,0,0.08)] md:p-10"
       >
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-[#aa1d1d]">
+            <p className="text-xs uppercase tracking-[0.4em] text-[#FF0000]">
               {lang === 'ar' ? 'لنصنع لحظة' : 'Let’s brew together'}
             </p>
             <h4 className="mt-2 text-2xl font-semibold">
@@ -174,7 +154,7 @@ export default function AboutPage({ params }: Props) {
           </div>
           <a
             href={`/${locale}/contact`}
-            className="inline-flex items-center gap-2 rounded-full border border-[#aa1d1d] px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#aa1d1d] transition hover:bg-[#aa1d1d]/10"
+            className="inline-flex items-center gap-2 rounded-full border text-[#fdf7f2] px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em]  transition hover:bg-[#FF0000]/10"
           >
             {lang === 'ar' ? 'لنتواصل' : 'Let’s connect'}
             <span aria-hidden>↗</span>

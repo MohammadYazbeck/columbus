@@ -31,8 +31,6 @@ export default async function HomePage({ params }: Props) {
         locale={locale}
       />
 
-      <AboutShowcase locale={locale} />
-
       <section className="space-y-6 rounded-[36px]   p-6  md:p-10">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
@@ -40,7 +38,7 @@ export default async function HomePage({ params }: Props) {
             <p className="text-muted-foreground">{tHome('story')}</p>
           </div>
         </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {featured.map((product, index) => (
             <ProductCard
               key={product.id}
@@ -51,10 +49,11 @@ export default async function HomePage({ params }: Props) {
           ))}
         </div>
       </section>
+      <AboutShowcase locale={locale} />
 
-      <section className="space-y-4 rounded-[32px] border border-[#efe7df] bg-white/90 p-6 shadow-[0_30px_60px_rgba(0,0,0,0.05)] md:p-10">
+      <section className="space-y-4 rounded-[32px] border border-[#efe7df] bg-black/85 text-white p-6 shadow-[0_30px_60px_rgba(0,0,0,0.05)] md:p-10">
         <div className="flex items-baseline justify-between">
-          <h2 className="text-2xl font-semibold text-primary">
+          <h2 className="text-2xl font-semibold text-white">
             {tHome('categoriesTitle')}
           </h2>
         </div>

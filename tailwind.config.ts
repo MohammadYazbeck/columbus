@@ -1,5 +1,5 @@
-import type {Config} from 'tailwindcss';
-import {fontFamily} from 'tailwindcss/defaultTheme';
+import type { Config } from 'tailwindcss';
+import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config: Config = {
   darkMode: ['class'],
@@ -12,7 +12,7 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: '1rem',
       screens: {
         '2xl': '1400px'
       }
@@ -60,9 +60,9 @@ const config: Config = {
       },
       keyframes: {
         'steam-rise': {
-          '0%': {opacity: '0', transform: 'translateY(10px) scale(0.95)'},
-          '50%': {opacity: '0.75', transform: 'translateY(-10px) scale(1.05)'},
-          '100%': {opacity: '0', transform: 'translateY(-30px) scale(1.08)'}
+          '0%': { opacity: '0', transform: 'translateY(10px) scale(0.95)' },
+          '50%': { opacity: '0.75', transform: 'translateY(-10px) scale(1.05)' },
+          '100%': { opacity: '0', transform: 'translateY(-30px) scale(1.08)' }
         }
       },
       animation: {

@@ -24,6 +24,13 @@ type Branch = {
 const getTranslation = (branch: Branch, locale: 'en' | 'ar') =>
   branch.translations.find((t) => t.locale === locale);
 
+const normalizeEmbedUrl = (value: string) => {
+  const trimmed = value.trim();
+  if (!trimmed) return trimmed;
+  const match = trimmed.match(/src="([^"]+)"/i);
+  return match ? match[1] : trimmed;
+};
+
 export function BranchesManager({branches}: {branches: Branch[]}) {
   const router = useRouter();
   const [form, setForm] = useState({
@@ -47,7 +54,7 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         imagePath: form.imagePath,
-        googleEmbedUrl: form.googleEmbedUrl,
+        googleEmbedUrl: normalizeEmbedUrl(form.googleEmbedUrl),
         directionsUrl: form.directionsUrl,
         phone: form.phone,
         mobile: form.mobile,
@@ -94,6 +101,9 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
         <div>
           <Label>Google embed URL</Label>
           <Input value={form.googleEmbedUrl} onChange={(event) => setForm((prev) => ({...prev, googleEmbedUrl: event.target.value}))} />
+          <p className="text-xs text-muted-foreground">
+            Paste the iframe URL from Google Maps (Share → Embed a map).
+          </p>
         </div>
         <div>
           <Label>Directions URL</Label>
