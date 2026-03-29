@@ -50,7 +50,7 @@ export function AboutShowcase({ locale }: Props) {
           initial="hidden"
           whileInView="show"
           viewport={{ amount: 0.4 }}
-          className="space-y-6"
+          className="order-2 space-y-6 lg:order-1"
         >
           <p className="text-sm uppercase text-[#aa1d1d]">
             {aboutIntro.welcome[lang]}
@@ -88,7 +88,7 @@ export function AboutShowcase({ locale }: Props) {
           initial="hidden"
           whileInView="show"
           viewport={{ amount: 0.3 }}
-          className="relative h-[360px]"
+          className="order-1 relative h-[360px] lg:order-2"
         >
           {collage.map((highlight, index) => (
             <motion.div
