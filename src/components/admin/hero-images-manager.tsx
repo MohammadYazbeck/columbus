@@ -39,10 +39,12 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
   const [heroFile, setHeroFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [edits, setEdits] = useState<EditMap>(() => mapFromImages(heroImages));
+  const [replacementFiles, setReplacementFiles] = useState<Record<number, File | null>>({});
 
   useEffect(() => {
     setEdits(mapFromImages(heroImages));
     setForm((prev) => ({...prev, sortOrder: heroImages.length + 1}));
+    setReplacementFiles({});
   }, [heroImages]);
 
   const handleCreate = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -83,11 +85,18 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
   const handleSave = async (id: number) => {
     const data = edits[id];
     if (!data) return;
+    const formData = new FormData();
+    formData.append('sortOrder', String(data.sortOrder));
+    formData.append('isActive', data.isActive ? 'true' : 'false');
+    const replacementFile = replacementFiles[id];
+    if (replacementFile) {
+      formData.append('image', replacementFile);
+    }
     await fetch(`/api/admin/hero-images/${id}`, {
       method: 'PATCH',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({sortOrder: data.sortOrder, isActive: data.isActive})
+      body: formData
     });
+    setReplacementFiles((prev) => ({...prev, [id]: null}));
     router.refresh();
   };
 
@@ -190,6 +199,22 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
                         <option value="false">Inactive</option>
                       </Select>
                     </div>
+                  </div>
+                  <div>
+                    <Label className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Replace image</Label>
+                    <Input
+                      type="file"
+                      accept=".jpg,.jpeg,.png,.webp"
+                      onChange={(event) =>
+                        setReplacementFiles((prev) => ({
+                          ...prev,
+                          [image.id]: event.target.files?.[0] ?? null
+                        }))
+                      }
+                    />
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Leave empty to keep the current image.
+                    </p>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <Button type="button" onClick={() => handleSave(image.id)}>

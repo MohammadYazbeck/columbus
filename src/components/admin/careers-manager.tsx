@@ -14,25 +14,56 @@ type CareerSlot = {
   translations: {locale: string; title: string; description: string | null}[];
 };
 
+type CareerFormState = {
+  titleEn: string;
+  titleAr: string;
+  descriptionEn: string;
+  descriptionAr: string;
+  sortOrder: number;
+  isActive: 'true' | 'false';
+};
+
 const getTranslation = (slot: CareerSlot, locale: 'en' | 'ar') =>
   slot.translations.find((t) => t.locale === locale);
 
 export function CareersManager({careers}: {careers: CareerSlot[]}) {
   const router = useRouter();
-  const [form, setForm] = useState({
+  const buildEmptyForm = (): CareerFormState => ({
     titleEn: '',
     titleAr: '',
     descriptionEn: '',
     descriptionAr: '',
-    sortOrder: 1
+    sortOrder: 1,
+    isActive: 'true'
   });
+  const [form, setForm] = useState<CareerFormState>(() => buildEmptyForm());
+  const [editingCareerId, setEditingCareerId] = useState<number | null>(null);
+  const isEditing = editingCareerId !== null;
 
-  const createSlot = async (event: React.FormEvent<HTMLFormElement>) => {
+  const resetForm = () => {
+    setForm(buildEmptyForm());
+    setEditingCareerId(null);
+  };
+
+  const populateForm = (career: CareerSlot) => {
+    setForm({
+      titleEn: getTranslation(career, 'en')?.title ?? '',
+      titleAr: getTranslation(career, 'ar')?.title ?? '',
+      descriptionEn: getTranslation(career, 'en')?.description ?? '',
+      descriptionAr: getTranslation(career, 'ar')?.description ?? '',
+      sortOrder: career.sortOrder,
+      isActive: career.isActive ? 'true' : 'false'
+    });
+    setEditingCareerId(career.id);
+  };
+
+  const submitSlot = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await fetch('/api/admin/careers', {
-      method: 'POST',
+    await fetch(isEditing ? `/api/admin/careers/${editingCareerId}` : '/api/admin/careers', {
+      method: isEditing ? 'PATCH' : 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
+        isActive: form.isActive,
         sortOrder: form.sortOrder,
         translations: {
           en: {title: form.titleEn, description: form.descriptionEn},
@@ -40,6 +71,7 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
         }
       })
     });
+    resetForm();
     router.refresh();
   };
 
@@ -59,7 +91,15 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={createSlot} className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-2">
+      <form onSubmit={submitSlot} className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-2">
+        <div className="md:col-span-2 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">{isEditing ? 'Edit slot' : 'Create slot'}</h2>
+          {isEditing && (
+            <Button type="button" variant="ghost" onClick={resetForm}>
+              Cancel edit
+            </Button>
+          )}
+        </div>
         <div>
           <Label>Title (EN)</Label>
           <Input value={form.titleEn} onChange={(event) => setForm((prev) => ({...prev, titleEn: event.target.value}))} />
@@ -90,8 +130,19 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
             onChange={(event) => setForm((prev) => ({...prev, sortOrder: Number(event.target.value)}))}
           />
         </div>
+        <div>
+          <Label>Status</Label>
+          <select
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            value={form.isActive}
+            onChange={(event) => setForm((prev) => ({...prev, isActive: event.target.value as 'true' | 'false'}))}
+          >
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </div>
         <div className="md:col-span-2">
-          <Button type="submit">Create slot</Button>
+          <Button type="submit">{isEditing ? 'Update slot' : 'Create slot'}</Button>
         </div>
       </form>
 
@@ -106,6 +157,9 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
                 </p>
               </div>
               <div className="flex gap-2">
+                <Button size="sm" variant="ghost" onClick={() => populateForm(career)}>
+                  Edit
+                </Button>
                 <Button size="sm" variant="outline" onClick={() => toggleActive(career)}>
                   {career.isActive ? 'Disable' : 'Enable'}
                 </Button>

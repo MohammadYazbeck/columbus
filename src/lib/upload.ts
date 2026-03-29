@@ -3,7 +3,7 @@ import path from 'path';
 import {randomBytes} from 'crypto';
 import {getUploadDir} from './features';
 
-type UploadKind = 'products' | 'jobs' | 'hero';
+type UploadKind = 'products' | 'jobs' | 'hero' | 'branches';
 
 const productTypes = new Map([
   ['image/jpeg', 'jpg'],
@@ -20,7 +20,8 @@ const cvTypes = new Map([
 const limits: Record<UploadKind, number> = {
   products: 5 * 1024 * 1024,
   jobs: 10 * 1024 * 1024,
-  hero: 5 * 1024 * 1024
+  hero: 5 * 1024 * 1024,
+  branches: 5 * 1024 * 1024
 };
 
 function buildRelativePath(kind: UploadKind, extension: string) {
@@ -60,6 +61,10 @@ export async function saveProductMedia(file: File) {
 
 export async function saveHeroImage(file: File) {
   return saveFile(file, 'hero', productTypes);
+}
+
+export async function saveBranchImage(file: File) {
+  return saveFile(file, 'branches', productTypes);
 }
 
 export async function saveJobCv(file: File) {

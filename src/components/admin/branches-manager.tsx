@@ -21,6 +21,19 @@ type Branch = {
   translations: {locale: string; name: string; address: string}[];
 };
 
+type BranchFormState = {
+  nameEn: string;
+  addressEn: string;
+  nameAr: string;
+  addressAr: string;
+  googleEmbedUrl: string;
+  directionsUrl: string;
+  phone: string;
+  mobile: string;
+  email: string;
+  sortOrder: number;
+};
+
 const getTranslation = (branch: Branch, locale: 'en' | 'ar') =>
   branch.translations.find((t) => t.locale === locale);
 
@@ -33,12 +46,11 @@ const normalizeEmbedUrl = (value: string) => {
 
 export function BranchesManager({branches}: {branches: Branch[]}) {
   const router = useRouter();
-  const [form, setForm] = useState({
+  const buildEmptyForm = (): BranchFormState => ({
     nameEn: '',
     addressEn: '',
     nameAr: '',
     addressAr: '',
-    imagePath: '',
     googleEmbedUrl: '',
     directionsUrl: '',
     phone: '',
@@ -46,26 +58,56 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
     email: '',
     sortOrder: 1
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [editingBranchId, setEditingBranchId] = useState<number | null>(null);
+  const [form, setForm] = useState<BranchFormState>(() => buildEmptyForm());
+  const isEditing = editingBranchId !== null;
+
+  const resetForm = () => {
+    setForm(buildEmptyForm());
+    setEditingBranchId(null);
+    setImageFile(null);
+  };
+
+  const populateForm = (branch: Branch) => {
+    setForm({
+      nameEn: getTranslation(branch, 'en')?.name ?? '',
+      addressEn: getTranslation(branch, 'en')?.address ?? '',
+      nameAr: getTranslation(branch, 'ar')?.name ?? '',
+      addressAr: getTranslation(branch, 'ar')?.address ?? '',
+      googleEmbedUrl: branch.googleEmbedUrl,
+      directionsUrl: branch.directionsUrl ?? '',
+      phone: branch.phone ?? '',
+      mobile: branch.mobile ?? '',
+      email: branch.email ?? '',
+      sortOrder: branch.sortOrder
+    });
+    setEditingBranchId(branch.id);
+    setImageFile(null);
+  };
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await fetch('/api/admin/branches', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        imagePath: form.imagePath,
-        googleEmbedUrl: normalizeEmbedUrl(form.googleEmbedUrl),
-        directionsUrl: form.directionsUrl,
-        phone: form.phone,
-        mobile: form.mobile,
-        email: form.email,
-        sortOrder: form.sortOrder,
-        translations: {
-          en: {name: form.nameEn, address: form.addressEn},
-          ar: {name: form.nameAr, address: form.addressAr}
-        }
-      })
+    const formData = new FormData();
+    formData.append('name_en', form.nameEn);
+    formData.append('address_en', form.addressEn);
+    formData.append('name_ar', form.nameAr);
+    formData.append('address_ar', form.addressAr);
+    formData.append('googleEmbedUrl', normalizeEmbedUrl(form.googleEmbedUrl));
+    formData.append('directionsUrl', form.directionsUrl);
+    formData.append('phone', form.phone);
+    formData.append('mobile', form.mobile);
+    formData.append('email', form.email);
+    formData.append('sortOrder', String(form.sortOrder));
+    formData.append('isActive', 'true');
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+    await fetch(isEditing ? `/api/admin/branches/${editingBranchId}` : '/api/admin/branches', {
+      method: isEditing ? 'PATCH' : 'POST',
+      body: formData
     });
+    resetForm();
     router.refresh();
   };
 
@@ -77,6 +119,14 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
   return (
     <div className="space-y-6">
       <form onSubmit={submit} className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-2">
+        <div className="md:col-span-2 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">{isEditing ? 'Edit branch' : 'Create branch'}</h2>
+          {isEditing && (
+            <Button type="button" variant="ghost" onClick={resetForm}>
+              Cancel edit
+            </Button>
+          )}
+        </div>
         <div>
           <Label>Name (EN)</Label>
           <Input value={form.nameEn} onChange={(event) => setForm((prev) => ({...prev, nameEn: event.target.value}))} />
@@ -94,9 +144,16 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
           <Textarea value={form.addressAr} onChange={(event) => setForm((prev) => ({...prev, addressAr: event.target.value}))} />
         </div>
         <div>
-          <Label>Image path or URL</Label>
-          <Input value={form.imagePath} onChange={(event) => setForm((prev) => ({...prev, imagePath: event.target.value}))} />
-          <p className="text-xs text-muted-foreground">Use /uploads/... or https://</p>
+          <Label>{isEditing ? 'Replace branch image' : 'Branch image'}</Label>
+          <Input
+            type="file"
+            accept=".jpg,.jpeg,.png,.webp"
+            onChange={(event) => setImageFile(event.target.files?.[0] ?? null)}
+          />
+          <p className="text-xs text-muted-foreground">
+            Uploads to the same server storage used by product images.
+            {isEditing ? ' Leave empty to keep the current image.' : ''}
+          </p>
         </div>
         <div>
           <Label>Google embed URL</Label>
@@ -130,7 +187,7 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
           />
         </div>
         <div className="md:col-span-2">
-          <Button type="submit">Create branch</Button>
+          <Button type="submit">{isEditing ? 'Update branch' : 'Create branch'}</Button>
         </div>
       </form>
 
@@ -142,9 +199,14 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
                 <h3 className="text-lg font-semibold">{getTranslation(branch, 'en')?.name}</h3>
                 <p className="text-xs text-muted-foreground">{branch.googleEmbedUrl.slice(0, 40)}...</p>
               </div>
-              <Button variant="ghost" onClick={() => deleteBranch(branch.id)}>
-                Delete
-              </Button>
+              <div className="flex gap-1">
+                <Button type="button" variant="ghost" onClick={() => populateForm(branch)}>
+                  Edit
+                </Button>
+                <Button type="button" variant="ghost" onClick={() => deleteBranch(branch.id)}>
+                  Delete
+                </Button>
+              </div>
             </div>
             {branch.imagePath && (
               <img

@@ -1,6 +1,7 @@
 import {NextResponse} from 'next/server';
 import {prisma} from '@/src/lib/prisma';
 import {getAdminSession} from '@/src/lib/auth';
+import {saveBranchImage} from '@/src/lib/upload';
 
 export async function GET() {
   if (!getAdminSession()) {
@@ -17,31 +18,51 @@ export async function POST(request: Request) {
   if (!getAdminSession()) {
     return NextResponse.json({error: 'Unauthorized'}, {status: 401});
   }
-  const body = await request.json();
-  if (!body.translations?.en?.name || !body.translations?.ar?.name || !body.googleEmbedUrl) {
-    return NextResponse.json({error: 'Missing translations'}, {status: 400});
-  }
-  const isActive =
-    typeof body.isActive === 'boolean'
-      ? body.isActive
-      : String(body.isActive ?? 'true') === 'true';
-  const branch = await prisma.branch.create({
-    data: {
-      imagePath: body.imagePath ?? null,
-      phone: body.phone ?? null,
-      mobile: body.mobile ?? null,
-      email: body.email ?? null,
-      googleEmbedUrl: body.googleEmbedUrl,
-      directionsUrl: body.directionsUrl ?? null,
-      isActive,
-      sortOrder: Number(body.sortOrder) || 0,
-      translations: {
-        create: [
-          {locale: 'en', name: body.translations.en.name, address: body.translations.en.address},
-          {locale: 'ar', name: body.translations.ar.name, address: body.translations.ar.address}
-        ]
-      }
+
+  try {
+    const formData = await request.formData();
+    const nameEn = String(formData.get('name_en') ?? '');
+    const nameAr = String(formData.get('name_ar') ?? '');
+    const addressEn = String(formData.get('address_en') ?? '');
+    const addressAr = String(formData.get('address_ar') ?? '');
+    const googleEmbedUrl = String(formData.get('googleEmbedUrl') ?? '');
+    const directionsUrl = String(formData.get('directionsUrl') ?? '');
+    const phone = String(formData.get('phone') ?? '');
+    const mobile = String(formData.get('mobile') ?? '');
+    const email = String(formData.get('email') ?? '');
+    const sortOrderRaw = Number(formData.get('sortOrder') ?? 0);
+    const sortOrder = Number.isNaN(sortOrderRaw) ? 0 : sortOrderRaw;
+    const isActive = String(formData.get('isActive') ?? 'true') === 'true';
+    const image = formData.get('image');
+
+    if (!nameEn || !nameAr || !googleEmbedUrl) {
+      return NextResponse.json({error: 'Missing translations'}, {status: 400});
     }
-  });
-  return NextResponse.json(branch, {status: 201});
+
+    const imagePath =
+      image instanceof File && image.size > 0 ? await saveBranchImage(image) : null;
+
+    const branch = await prisma.branch.create({
+      data: {
+        imagePath,
+        phone: phone || null,
+        mobile: mobile || null,
+        email: email || null,
+        googleEmbedUrl,
+        directionsUrl: directionsUrl || null,
+        isActive,
+        sortOrder,
+        translations: {
+          create: [
+            {locale: 'en', name: nameEn, address: addressEn},
+            {locale: 'ar', name: nameAr, address: addressAr}
+          ]
+        }
+      }
+    });
+    return NextResponse.json(branch, {status: 201});
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({error: 'Failed to save branch'}, {status: 500});
+  }
 }
