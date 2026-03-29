@@ -51,7 +51,7 @@ export default function AboutPage({ params }: Props) {
       >
         <div className="relative z-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.42em] text-[#ab1d1d] md:text-sm">
+            <p className="text-xs uppercase  text-[#ab1d1d] md:text-sm">
               {aboutIntro.welcome[lang]}
             </p>
             <h1 className="text-4xl font-semibold leading-tight text-[#17120f] md:text-6xl">
@@ -60,11 +60,11 @@ export default function AboutPage({ params }: Props) {
             <p className="max-w-2xl text-base leading-relaxed text-[#3f342b] md:text-lg">
               {aboutIntro.lead[lang]}
             </p>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-[#ab1d1d] md:text-xs">
+            <p className="text-[11px] font-semibold uppercase  text-[#ab1d1d] md:text-xs">
               {lang === 'ar' ? 'كولومبوس' : 'Colombus Roastery'}
             </p>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-[11px] uppercase tracking-[0.25em] text-[#ab1d1d] md:text-xs">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-[11px] uppercase text-[#ab1d1d] md:text-xs">
               {milestones.map((milestone, index) => (
                 <div key={milestone.year} className="flex items-center gap-3">
                   <span className="text-[#1a1512]">{milestone.year}</span>
@@ -104,7 +104,7 @@ export default function AboutPage({ params }: Props) {
         className="space-y-8"
       >
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.4em] text-[#ab1d1d]">
+          <p className="text-xs uppercase text-[#ab1d1d]">
             {lang === 'ar' ? 'دعائم التجربة' : 'Experience Pillars'}
           </p>
           <h2 className="text-3xl font-semibold text-[#18120f] md:text-4xl">
@@ -121,10 +121,12 @@ export default function AboutPage({ params }: Props) {
               variants={fade}
               className="space-y-3 border-t border-[#ab1d1d]/30 pt-5"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#ab1d1d]">
+              <p className="text-xs font-semibold uppercase text-[#ab1d1d]">
                 {String(index + 1).padStart(2, '0')}
               </p>
-              <h3 className="text-xl font-semibold text-[#1d1713]">{pillar.title[lang]}</h3>
+              <h3 className="text-xl font-semibold text-[#1d1713]">
+                {pillar.title[lang]}
+              </h3>
               <p className="text-sm leading-relaxed text-[#4d4034] md:text-base">
                 {pillar.detail[lang]}
               </p>
@@ -163,8 +165,10 @@ export default function AboutPage({ params }: Props) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
               </div>
 
-              <div className={`space-y-4 md:col-span-6 ${isReversed ? 'md:order-1' : 'md:order-2'}`}>
-                <p className="text-xs font-semibold uppercase tracking-[0.33em] text-[#ab1d1d]">
+              <div
+                className={`space-y-4 md:col-span-6 ${isReversed ? 'md:order-1' : 'md:order-2'}`}
+              >
+                <p className="text-xs font-semibold uppercase text-[#ab1d1d]">
                   {String(index + 1).padStart(2, '0')}
                 </p>
                 <h3 className="text-2xl font-semibold text-[#18120f] md:text-3xl">
@@ -187,7 +191,7 @@ export default function AboutPage({ params }: Props) {
         className="rounded-[32px] border border-[#e6ddd0] bg-[#fffdf9] px-6 py-10 text-[#1a1512] shadow-[0_22px_50px_rgba(0,0,0,0.06)] md:px-10 md:py-12"
       >
         <div className="space-y-6">
-          <p className="text-xs uppercase tracking-[0.4em] text-[#ab1d1d]">
+          <p className="text-xs uppercase text-[#ab1d1d]">
             {lang === 'ar' ? 'لنصنع لحظة' : 'Let’s brew together'}
           </p>
 
@@ -197,10 +201,12 @@ export default function AboutPage({ params }: Props) {
                 key={index}
                 className="grid gap-3 border-t border-[#ab1d1d]/20 pt-4 md:grid-cols-[auto_1fr] md:items-start md:gap-6"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.33em] text-[#ab1d1d]">
+                <p className="text-xs font-semibold uppercase text-[#ab1d1d]">
                   {String(index + 1).padStart(2, '0')}
                 </p>
-                <p className="text-sm leading-relaxed text-[#473a2f] md:text-base">{paragraph}</p>
+                <p className="text-sm leading-relaxed text-[#473a2f] md:text-base">
+                  {paragraph}
+                </p>
               </div>
             ))}
           </div>
@@ -213,7 +219,7 @@ export default function AboutPage({ params }: Props) {
             </h4>
             <a
               href={`/${locale}/contact`}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#ab1d1d] bg-[#ab1d1d] px-7 py-3 text-xs font-semibold uppercase tracking-[0.32em] text-white transition hover:bg-[#8f1818]"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#ab1d1d] bg-[#ab1d1d] px-7 py-3 text-xs font-semibold uppercase text-white transition hover:bg-[#8f1818]"
             >
               {lang === 'ar' ? 'لنتواصل' : 'Let’s connect'}
               <span aria-hidden>↗</span>

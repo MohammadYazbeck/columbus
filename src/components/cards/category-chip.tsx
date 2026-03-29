@@ -14,7 +14,7 @@ export function CategoryChip({ locale, slug, label, active }: Props) {
     <Link
       href={`/${locale}/category/${slug}`}
       className={cn(
-        'rounded-2xl px-5 py-2 text-sm font-semibold uppercase tracking-[0.3em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
+        'rounded-2xl px-5 py-2 text-sm font-semibold uppercase transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
         active
           ? 'bg-gradient-to-r from-[#3b2119] via-[#29130f] to-[#120905] text-white shadow-[0_12px_30px_rgba(18,9,5,0.25)]'
           : 'border border-transparent bg-black text-white/80 shadow-inner hover:border-[#d6c5b6] hover:text-white'

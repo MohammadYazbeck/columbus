@@ -7,7 +7,7 @@ export default async function AdminHeroPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">Hero imagery</p>
+        <p className="text-xs uppercase text-muted-foreground">Hero imagery</p>
         <h1 className="text-3xl font-semibold text-primary">Homepage hero</h1>
       </div>
       <HeroImagesManager heroImages={heroImages} />

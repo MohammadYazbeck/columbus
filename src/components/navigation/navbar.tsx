@@ -81,7 +81,7 @@ export function Navbar({ locale, messages, categories }: Props) {
                     href={item.path(locale)}
                     className={cn(
                       'relative inline-flex items-center overflow-hidden text-sm text-[#6d5d4b] transition-colors duration-300',
-                      'uppercase tracking-[0.1em]',
+                      'uppercase',
                       'after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-0 after:rounded-full after:bg-gradient-to-r after:from-[#aa1d1d] after:to-[#ff0000] after:opacity-0 after:transition-all after:duration-300 after:ease-out hover:text-[#1b140f] hover:after:left-0 hover:after:w-full hover:after:opacity-100'
                     )}
                   >
@@ -97,7 +97,7 @@ export function Navbar({ locale, messages, categories }: Props) {
                     onMouseEnter={openProducts}
                     onMouseLeave={closeProducts}
                   >
-                    <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">
+                    <p className="text-xs uppercase text-muted-foreground">
                       {locale === 'ar' ? 'الفئات' : 'Categories'}
                     </p>
                     <div className="mt-3 grid gap-2">
@@ -122,7 +122,7 @@ export function Navbar({ locale, messages, categories }: Props) {
                 href={item.path(locale)}
                 className={cn(
                   'relative inline-flex items-center overflow-hidden text-sm text-[#6d5d4b] transition-colors duration-300',
-                  'uppercase tracking-[0.35em]',
+                  'uppercase',
                   'after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-0 after:rounded-full after:bg-gradient-to-r after:from-[#aa1d1d] after:to-[#ff0000] after:opacity-0 after:transition-all after:duration-300 after:ease-out hover:text-[#1b140f] hover:after:left-0 hover:after:w-full hover:after:opacity-100'
                 )}
               >
@@ -193,7 +193,7 @@ export function Navbar({ locale, messages, categories }: Props) {
                       {productsLabel}
                     </Link>
                     <div className="rounded-2xl border border-[#ede6df] bg-white p-4">
-                      <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
+                      <p className="text-xs uppercase text-muted-foreground">
                         {locale === 'ar' ? 'الفئات' : 'Categories'}
                       </p>
                       <div className="mt-3 grid gap-2 sm:grid-cols-2">

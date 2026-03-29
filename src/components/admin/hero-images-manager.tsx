@@ -153,7 +153,7 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
       <div className="rounded-3xl border border-slate-200 bg-white p-6">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-primary">Current images</h2>
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          <p className="text-xs uppercase text-muted-foreground">
             {heroImages.length} items
           </p>
         </div>
@@ -180,7 +180,7 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
                 <div className="flex-1 space-y-4">
                   <div className="grid gap-3 md:grid-cols-2">
                     <div>
-                      <Label className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Sort order</Label>
+                      <Label className="text-xs uppercase text-muted-foreground">Sort order</Label>
                       <Input
                         type="number"
                         value={editable.sortOrder}
@@ -190,7 +190,7 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
                       />
                     </div>
                     <div>
-                      <Label className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Status</Label>
+                      <Label className="text-xs uppercase text-muted-foreground">Status</Label>
                       <Select
                         value={editable.isActive ? 'true' : 'false'}
                         onChange={(event) => updateEditField(image.id, 'isActive', event.target.value === 'true')}
@@ -201,7 +201,7 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
                     </div>
                   </div>
                   <div>
-                    <Label className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Replace image</Label>
+                    <Label className="text-xs uppercase text-muted-foreground">Replace image</Label>
                     <Input
                       type="file"
                       accept=".jpg,.jpeg,.png,.webp"

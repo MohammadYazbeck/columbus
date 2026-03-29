@@ -18,7 +18,7 @@ export default async function BranchesPage({params}: Props) {
       <header className="relative overflow-hidden rounded-[34px] border border-[#e6ddd0] bg-[#fffdf9] px-6 py-8 shadow-[0_24px_55px_rgba(0,0,0,0.06)] md:px-10 md:py-10">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(171,29,29,0.08),_transparent_58%)]" />
         <div className="relative z-10 flex flex-col gap-5">
-          <p className="text-xs uppercase tracking-[0.4em] text-[#ab1d1d]">
+          <p className="text-xs uppercase text-[#ab1d1d]">
             {isArabic ? 'فروعنا' : 'Our Locations'}
           </p>
           <h1 className="text-4xl font-semibold text-[#17120f] md:text-5xl">
@@ -33,7 +33,7 @@ export default async function BranchesPage({params}: Props) {
             <span className="text-sm font-semibold text-[#17120f]">
               {String(branches.length).padStart(2, '0')}
             </span>
-            <span className="text-[11px] uppercase tracking-[0.3em] text-[#ab1d1d]">
+            <span className="text-[11px] uppercase text-[#ab1d1d]">
               {isArabic ? 'فرع متاح' : 'Active Branches'}
             </span>
           </div>

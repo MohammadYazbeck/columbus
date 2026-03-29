@@ -1,0 +1,25 @@
+Colombus Branches Info
+Source: prisma/seed.ts
+Note: This file reflects the seeded/default branch data in the codebase.
+
+1. Al Rawda Salon
+- Arabic Name: صالون الروضة
+- Address (EN): Rawda 5th Avenue, Damascus
+- Address (AR): دمشق، شارع الروضة الخامس
+- Phone: +963 11 222 3344
+- Mobile: -
+- Email: -
+- Directions URL: https://maps.app.goo.gl/abcdef
+- Google Embed URL: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26610.1773!2d36.285!3d33.513!2m3!1f0!2f0!3f0
+- Image Path: https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=900&q=60
+
+2. Downtown House
+- Arabic Name: فرع وسط المدينة
+- Address (EN): Martyrs Square, Damascus
+- Address (AR): ساحة الشهداء، دمشق
+- Phone: -
+- Mobile: +963 944 123 456
+- Email: downtown@colombus.coffee
+- Directions URL: https://maps.app.goo.gl/xyz123
+- Google Embed URL: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3399.010!2d36.298!3d33.507!2m3!1f0!2f0!3f0
+- Image Path: https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=60

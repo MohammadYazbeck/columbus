@@ -50,7 +50,7 @@ export default async function ProductPage({params}: Props) {
           )}
         </div>
         <div className="space-y-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          <p className="text-xs uppercase text-muted-foreground">
             {product.category.translation.name}
           </p>
           <h1 className="text-4xl font-semibold text-primary">{product.translation.name}</h1>

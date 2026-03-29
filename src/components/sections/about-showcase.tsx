@@ -52,10 +52,10 @@ export function AboutShowcase({ locale }: Props) {
           viewport={{ amount: 0.4 }}
           className="space-y-6"
         >
-          <p className="text-sm uppercase tracking-[0.5em] text-[#aa1d1d]">
+          <p className="text-sm uppercase text-[#aa1d1d]">
             {aboutIntro.welcome[lang]}
           </p>
-          <h2 className="text-5xl font-semibold tracking-tight text-primary md:text-6xl">
+          <h2 className="text-5xl font-semibold text-primary md:text-6xl">
             {aboutIntro.title[lang]}
           </h2>
           <p className="text-lg text-muted-foreground">{aboutIntro.lead[lang]}</p>
@@ -67,7 +67,7 @@ export function AboutShowcase({ locale }: Props) {
                   className="rounded-2xl border border-[#efe7df] border-t-2 border-t-[#aa1d1d] bg-white px-6 py-4"
                 >
                   <p className="text-3xl font-semibold text-[#aa1d1d]">{stat.value}</p>
-                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
+                  <p className="text-xs uppercase text-muted-foreground">
                     {stat.label}
                   </p>
                 </div>
@@ -76,7 +76,7 @@ export function AboutShowcase({ locale }: Props) {
           </div>
           <Link
             href={`/${locale}/about`}
-            className="inline-flex w-max items-center gap-2 rounded-full border border-[#aa1d1d] px-7 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#aa1d1d] transition hover:bg-[#aa1d1d]/10"
+            className="inline-flex w-max items-center gap-2 rounded-full border border-[#aa1d1d] px-7 py-3 text-xs font-semibold uppercase text-[#aa1d1d] transition hover:bg-[#aa1d1d]/10"
           >
             {lang === 'ar' ? 'قصتنا' : 'Our story'}
             <span aria-hidden>↗</span>

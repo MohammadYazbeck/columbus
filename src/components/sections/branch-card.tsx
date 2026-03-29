@@ -66,7 +66,7 @@ export function BranchCard({branch, locale}: Props) {
             className="object-cover"
           />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent px-6 pb-6 pt-14 text-white">
-            <p className="text-xs uppercase tracking-[0.35em] text-white/75">
+            <p className="text-xs uppercase text-white/75">
               {isArabic ? 'مقهى كولومبوس' : 'Colombus Coffeehouse'}
             </p>
             <h3 className="text-2xl font-semibold md:text-3xl">{branch.translation.name}</h3>
@@ -75,7 +75,7 @@ export function BranchCard({branch, locale}: Props) {
 
         <div className="flex h-full flex-col gap-6 p-6 md:p-8">
           <div className="space-y-3 border-b border-[#eadfd2] pb-5">
-            <p className="text-xs uppercase tracking-[0.35em] text-[#ab1d1d]">
+            <p className="text-xs uppercase text-[#ab1d1d]">
               {isArabic ? 'العنوان' : 'Address'}
             </p>
             <p className="text-sm leading-relaxed text-[#4d4034] md:text-base">
@@ -87,7 +87,7 @@ export function BranchCard({branch, locale}: Props) {
             <dl className="grid gap-3 text-sm">
               {contactRows.map((row) => (
                 <div key={row.id} className="grid grid-cols-[86px_1fr] items-start gap-3">
-                  <dt className="text-xs uppercase tracking-[0.25em] text-[#ab1d1d]">{row.label}</dt>
+                  <dt className="text-xs uppercase text-[#ab1d1d]">{row.label}</dt>
                   <dd className="text-[#1f1915]">{row.value}</dd>
                 </div>
               ))}
@@ -99,14 +99,14 @@ export function BranchCard({branch, locale}: Props) {
               href={branch.directionsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex w-max items-center gap-2 rounded-full border border-[#ab1d1d] bg-[#ab1d1d] px-5 py-2 text-xs font-semibold uppercase tracking-[0.33em] text-white transition hover:bg-[#8f1818]"
+              className="inline-flex w-max items-center gap-2 rounded-full border border-[#ab1d1d] bg-[#ab1d1d] px-5 py-2 text-xs font-semibold uppercase text-white transition hover:bg-[#8f1818]"
             >
               {directionsLabel}
             </a>
           )}
 
           <div className="mt-auto rounded-[20px] border border-[#eadfd2] bg-white p-2">
-            <p className="px-2 pb-2 text-[11px] uppercase tracking-[0.28em] text-[#ab1d1d]">
+            <p className="px-2 pb-2 text-[11px] uppercase text-[#ab1d1d]">
               {isArabic ? 'الموقع على الخريطة' : 'Location map'}
             </p>
             <iframe

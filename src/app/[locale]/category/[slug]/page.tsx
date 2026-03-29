@@ -17,7 +17,7 @@ export default async function CategoryPage({params}: Props) {
   return (
     <div className="space-y-12">
       <header className="space-y-2">
-        <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">
+        <p className="text-xs uppercase text-muted-foreground">
           {locale === 'ar' ? 'فئة القهوة' : 'Coffee Category'}
         </p>
         <h1 className="text-4xl font-semibold text-primary">{category.translation.name}</h1>

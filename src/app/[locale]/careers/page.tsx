@@ -27,7 +27,7 @@ export default async function CareersPage({params}: Props) {
   return (
     <div className="space-y-10">
       <header className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">
+        <p className="text-xs uppercase text-muted-foreground">
           {locale === 'ar' ? 'الوظائف' : 'Careers'}
         </p>
         <h1 className="text-4xl font-semibold text-primary">{t('title')}</h1>
