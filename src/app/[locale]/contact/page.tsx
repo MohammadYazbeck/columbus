@@ -1,8 +1,6 @@
 import {getTranslations} from 'next-intl/server';
 import type {Locale} from '@/src/i18n/routing';
-import {ContactForm} from '@/src/components/forms/contact-form';
 import {ContactInfo} from '@/src/components/sections/contact-info';
-import {isCaptchaEnabled} from '@/src/lib/features';
 
 type Props = {
   params: {locale: Locale};
@@ -10,28 +8,26 @@ type Props = {
 
 const INFO = {
   address: {
-    en: 'Garden Plaza, Damascus, Syria',
-    ar: 'غاردن بلازا، دمشق، سوريا'
+    en: 'Main Location : Hamouria - Rif Dimashq - Syria  Temporary location : Dar\'a Highway - Rif Dimashq - Syria',
+    ar: 'الموقع الرئيسي : حمورية - ريف دمشق - سوريا  الموقع المؤقت : طريق درعا - ريف دمشق - سوريا'
   },
   phone: {
-    en: '+963 11 445 9080',
-    ar: '+963 11 445 9080'
+    en: '+963 11 9813',
+    ar: '+963 11 9813'
   },
   mobile: {
-    en: '+963 944 555 120',
-    ar: '+963 944 555 120'
+    en: '+963989994010',
+    ar: '+963989994010'
   },
   email: {
-    en: 'hello@colombus.coffee',
-    ar: 'hello@colombus.coffee'
+    en: 'columbus.syr@gmail.com',
+    ar: 'columbus.syr@gmail.com'
   }
 };
 
 export default async function ContactPage({params}: Props) {
   const {locale} = params;
   const t = await getTranslations({locale, namespace: 'contact'});
-  const tf = await getTranslations({locale, namespace: 'forms'});
-  const enableCaptcha = isCaptchaEnabled();
 
   return (
     <div className="space-y-10">
@@ -51,21 +47,6 @@ export default async function ContactPage({params}: Props) {
           {label: t('emailLabel'), value: INFO.email[locale]}
         ]}
       />
-
-      <div className="rounded-3xl border border-white/20 bg-white/80 p-6">
-        <ContactForm
-          locale={locale}
-          enableCaptcha={enableCaptcha}
-          labels={{
-            name: tf('name'),
-            email: tf('email'),
-            title: tf('title'),
-            message: tf('message'),
-            captcha: tf('captcha'),
-            submit: locale === 'ar' ? 'إرسال' : 'Submit'
-          }}
-        />
-      </div>
     </div>
   );
 }

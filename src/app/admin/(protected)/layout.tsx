@@ -17,7 +17,6 @@ const navItems = [
   {href: '/admin/products', label: 'Products'},
   {href: '/admin/branches', label: 'Branches'},
   {href: '/admin/careers', label: 'Careers'},
-  {href: '/admin/requests/contact', label: 'Contact Requests'},
   {href: '/admin/requests/jobs', label: 'Job Applications'}
 ];
 

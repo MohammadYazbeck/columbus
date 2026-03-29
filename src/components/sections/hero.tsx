@@ -101,6 +101,7 @@ export function Hero({ title, subtitle, cta, href, images, locale }: HeroProps) 
       </AnimatePresence>
       <div className="absolute inset-0 bg-gradient-to-br from-[#0a0403]/85 via-[#30130b]/45 to-[#050202]/80" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent)]" />
+      <div className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-black/90 via-black/65 to-transparent" />
       <div
         className={`pointer-events-none absolute top-4 z-10 flex w-full px-4 sm:px-6 lg:px-16 ${
           isRtl ? 'justify-end' : 'justify-start'
@@ -120,14 +121,11 @@ export function Hero({ title, subtitle, cta, href, images, locale }: HeroProps) 
       </div>
       <div className="relative z-10 flex min-h-[70vh] flex-col justify-end px-4 pb-6 pt-24 sm:min-h-[520px] sm:px-6 sm:pb-12 sm:pt-40 lg:min-h-[600px] lg:px-14">
         <motion.div
-          className="w-full max-w-3xl rounded-2xl border border-white/15 bg-white/0 p-5 text-white shadow-[0_25px_60px_rgba(0,0,0,0.35)] sm:p-8 lg:p-10"
+          className="w-full max-w-3xl  bg-white/0 p-5 text-white sm:p-8 lg:p-10"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-white/70 sm:text-xs">
-            Colombus Reserve
-          </p>
           <h1 className="mt-3 text-2xl font-semibold sm:mt-4 sm:text-3xl lg:text-4xl">
             {title}
           </h1>

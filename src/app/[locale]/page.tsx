@@ -35,7 +35,6 @@ export default async function HomePage({ params }: Props) {
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <h2 className="text-3xl font-semibold text-primary">{tHome('featured')}</h2>
-            <p className="text-muted-foreground">{tHome('story')}</p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">

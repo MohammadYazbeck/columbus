@@ -1,12 +1,11 @@
 import {prisma} from './prisma';
 
 export async function getAdminDashboardStats() {
-  const [productCount, contactCount, jobCount] = await Promise.all([
+  const [productCount, jobCount] = await Promise.all([
     prisma.product.count(),
-    prisma.contactSubmission.count(),
     prisma.jobApplication.count()
   ]);
-  return {productCount, contactCount, jobCount};
+  return {productCount, jobCount};
 }
 
 export async function getAdminCategories() {
@@ -44,13 +43,6 @@ export async function getAdminCareerSlots() {
   return prisma.careerSlot.findMany({
     include: {translations: true},
     orderBy: {sortOrder: 'asc'}
-  });
-}
-
-export async function getAdminContactRequests() {
-  return prisma.contactSubmission.findMany({
-    orderBy: {createdAt: 'desc'},
-    take: 100
   });
 }
 

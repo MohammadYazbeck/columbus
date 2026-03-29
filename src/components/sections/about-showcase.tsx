@@ -42,8 +42,8 @@ export function AboutShowcase({ locale }: Props) {
   ];
 
   return (
-    <section className="relative overflow-hidden rounded-[18px] border border-[#efe7df] bg-[#fdf7f2] p-6 text-primary shadow-[0_40px_90px_rgba(15,10,6,0.08)] md:p-14">
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#f2ebe3] to-transparent" />
+    <section className="relative overflow-hidden rounded-[18px] p-6 text-primary  md:p-14">
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4  from-[#f2ebe3] to-transparent" />
       <div className="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <motion.div
           variants={fadeIn}

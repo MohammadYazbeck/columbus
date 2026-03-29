@@ -28,11 +28,23 @@
 }
 
 body {
-  background: radial-gradient(circle at top, #f9f6f1 0%, #ffffff 40%, #f0ebe3 100%);
+  background: radial-gradient(
+    circle at top,
+    #f9f6f1 0%,
+    rgb(255, 255, 255) 40%,
+    rgb(240, 235, 227) 100%
+  );
   color: #1a1614;
-  font-family: var(--font-urbanist), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  font-family:
+    var(--font-urbanist),
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
     sans-serif;
-  font-feature-settings: 'pnum' on, 'lnum' on;
+  font-feature-settings:
+    'pnum' on,
+    'lnum' on;
 }
 
 [dir='rtl'] body {
