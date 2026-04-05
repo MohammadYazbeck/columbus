@@ -59,7 +59,7 @@ export function Navbar({ locale, messages, categories }: Props) {
         <Link href={`/${locale}`} className="flex items-center">
           <Image
             src="/logo.png"
-            alt="Colombus Coffee"
+            alt="Columbus Coffee"
             width={280}
             height={90}
             className="h-16 w-auto object-contain"

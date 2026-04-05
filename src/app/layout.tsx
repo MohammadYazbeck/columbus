@@ -2,8 +2,13 @@ import './globals.css';
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
-  title: 'Colombus Coffee',
-  description: 'Luxury Syrian coffee experiences'
+  title: 'Columbus Coffee',
+  description: 'Luxury Syrian coffee experiences',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png'
+  }
 };
 
 export const dynamic = 'force-dynamic';

@@ -90,7 +90,7 @@ export function Hero({ title, subtitle, cta, href, images, locale }: HeroProps) 
         >
           <Image
             src={currentUrl}
-            alt="Colombus hero background"
+            alt="Columbus hero background"
             fill
             sizes="100vw"
             quality={95}
@@ -111,7 +111,7 @@ export function Hero({ title, subtitle, cta, href, images, locale }: HeroProps) 
           <div className="h-10  overflow-hidden rounded-full">
             <Image
               src="/badge.png"
-              alt="Colombus"
+              alt="Columbus"
               width={128}
               height={40}
               className="h-full w-auto object-contain"

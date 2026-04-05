@@ -10,7 +10,7 @@
     "catalog": "Catalog"
   },
   "hero": {
-    "title": "Colombus Reserve Coffee",
+    "title": "Columbus Reserve Coffee",
     "subtitle": "A celebration of Syrian craftsmanship blending heritage beans with contemporary roasting artistry.",
     "cta": "Explore Collections"
   },
@@ -33,7 +33,7 @@
     "upload": "Upload"
   },
   "contact": {
-    "title": "Contact Colombus",
+    "title": "Contact Columbus",
     "description": "We would love to hear from you. Share your ideas, feedback, or invite us to collaborate.",
     "addressLabel": "Address",
     "phoneLabel": "Phone",
@@ -41,13 +41,13 @@
     "emailLabel": "Email"
   },
   "careers": {
-    "title": "Join Colombus",
+    "title": "Join Columbus",
     "description": "We are always searching for passionate people to elevate Syrian coffee culture.",
     "selectRole": "Select a role",
     "placeholder": "Choose a position"
   },
   "footer": {
-    "tagline": "Colombus • A Favor To Discover"
+    "tagline": "Columbus • A Favor To Discover"
   },
   "forms": {
     "name": "Full name",

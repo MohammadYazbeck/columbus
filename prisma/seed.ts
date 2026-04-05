@@ -286,7 +286,7 @@ async function main() {
       googleEmbedUrl:
         'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3399.010!2d36.298!3d33.507!2m3!1f0!2f0!3f0',
       directionsUrl: 'https://maps.app.goo.gl/xyz123',
-      email: 'downtown@colombus.coffee',
+      email: 'downtown@columbus.coffee',
       mobile: '+963 944 123 456',
       translations: [
         {locale: 'en', name: 'Downtown House', address: 'Martyrs Square, Damascus'},
