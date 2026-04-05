@@ -28,6 +28,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     label: category.translation.name
   }));
   const footerMessages = messages.footer as Record<string, string> | undefined;
+  const navigationMessages = messages.navigation as Record<string, string> | undefined;
 
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
@@ -39,7 +40,14 @@ export default async function LocaleLayout({ children, params }: Props) {
             categories={categoryLinks}
           />
           <main className="container min-h-[80vh] py-10">{children}</main>
-          <Footer locale={locale} tagline={footerMessages?.tagline ?? ''} />
+          <Footer
+            locale={locale}
+            tagline={footerMessages?.tagline ?? ''}
+            links={{
+              contact: navigationMessages?.contact ?? 'Contact',
+              careers: navigationMessages?.careers ?? 'Careers'
+            }}
+          />
         </NextIntlClientProvider>
       </body>
     </html>

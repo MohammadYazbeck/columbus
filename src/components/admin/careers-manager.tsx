@@ -6,6 +6,7 @@ import {Button} from '@/src/components/ui/button';
 import {Input} from '@/src/components/ui/input';
 import {Textarea} from '@/src/components/ui/textarea';
 import {Label} from '@/src/components/ui/label';
+import type {AdminLocale} from '@/src/lib/admin-locale';
 
 type CareerSlot = {
   id: number;
@@ -26,8 +27,9 @@ type CareerFormState = {
 const getTranslation = (slot: CareerSlot, locale: 'en' | 'ar') =>
   slot.translations.find((t) => t.locale === locale);
 
-export function CareersManager({careers}: {careers: CareerSlot[]}) {
+export function CareersManager({careers, locale}: {careers: CareerSlot[]; locale: AdminLocale}) {
   const router = useRouter();
+  const isArabic = locale === 'ar';
   const buildEmptyForm = (): CareerFormState => ({
     titleEn: '',
     titleAr: '',
@@ -93,15 +95,15 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
     <div className="space-y-6">
       <form onSubmit={submitSlot} className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-2">
         <div className="md:col-span-2 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">{isEditing ? 'Edit slot' : 'Create slot'}</h2>
+          <h2 className="text-lg font-semibold">{isEditing ? (isArabic ? 'تعديل الوظيفة' : 'Edit slot') : isArabic ? 'إضافة وظيفة' : 'Create slot'}</h2>
           {isEditing && (
             <Button type="button" variant="ghost" onClick={resetForm}>
-              Cancel edit
+              {isArabic ? 'إلغاء التعديل' : 'Cancel edit'}
             </Button>
           )}
         </div>
         <div>
-          <Label>Title (EN)</Label>
+          <Label>{isArabic ? 'العنوان (EN)' : 'Title (EN)'}</Label>
           <Input value={form.titleEn} onChange={(event) => setForm((prev) => ({...prev, titleEn: event.target.value}))} />
         </div>
         <div>
@@ -109,7 +111,7 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
           <Input value={form.titleAr} onChange={(event) => setForm((prev) => ({...prev, titleAr: event.target.value}))} />
         </div>
         <div>
-          <Label>Description (EN)</Label>
+          <Label>{isArabic ? 'الوصف (EN)' : 'Description (EN)'}</Label>
           <Textarea
             value={form.descriptionEn}
             onChange={(event) => setForm((prev) => ({...prev, descriptionEn: event.target.value}))}
@@ -123,7 +125,7 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
           />
         </div>
         <div>
-          <Label>Sort order</Label>
+          <Label>{isArabic ? 'ترتيب الظهور' : 'Sort order'}</Label>
           <Input
             type="number"
             value={form.sortOrder}
@@ -131,18 +133,18 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
           />
         </div>
         <div>
-          <Label>Status</Label>
+          <Label>{isArabic ? 'الحالة' : 'Status'}</Label>
           <select
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             value={form.isActive}
             onChange={(event) => setForm((prev) => ({...prev, isActive: event.target.value as 'true' | 'false'}))}
           >
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
+            <option value="true">{isArabic ? 'نشط' : 'Active'}</option>
+            <option value="false">{isArabic ? 'غير نشط' : 'Inactive'}</option>
           </select>
         </div>
         <div className="md:col-span-2">
-          <Button type="submit">{isEditing ? 'Update slot' : 'Create slot'}</Button>
+          <Button type="submit">{isEditing ? (isArabic ? 'حفظ التعديلات' : 'Update slot') : isArabic ? 'إضافة الوظيفة' : 'Create slot'}</Button>
         </div>
       </form>
 
@@ -153,18 +155,18 @@ export function CareersManager({careers}: {careers: CareerSlot[]}) {
               <div>
                 <h3 className="text-lg font-semibold">{getTranslation(career, 'en')?.title}</h3>
                 <p className="text-xs text-muted-foreground">
-                  {career.isActive ? 'Active' : 'Inactive'} · order {career.sortOrder}
+                  {career.isActive ? (isArabic ? 'نشط' : 'Active') : isArabic ? 'غير نشط' : 'Inactive'} · {isArabic ? 'الترتيب' : 'order'} {career.sortOrder}
                 </p>
               </div>
               <div className="flex gap-2">
                 <Button size="sm" variant="ghost" onClick={() => populateForm(career)}>
-                  Edit
+                  {isArabic ? 'تعديل' : 'Edit'}
                 </Button>
                 <Button size="sm" variant="outline" onClick={() => toggleActive(career)}>
-                  {career.isActive ? 'Disable' : 'Enable'}
+                  {career.isActive ? (isArabic ? 'تعطيل' : 'Disable') : isArabic ? 'تفعيل' : 'Enable'}
                 </Button>
                 <Button size="sm" variant="ghost" onClick={() => deleteSlot(career.id)}>
-                  Delete
+                  {isArabic ? 'حذف' : 'Delete'}
                 </Button>
               </div>
             </div>

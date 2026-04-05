@@ -8,6 +8,7 @@ import {Label} from '@/src/components/ui/label';
 import {Select} from '@/src/components/ui/select';
 import {Textarea} from '@/src/components/ui/textarea';
 import {asUploadUrl} from '@/src/lib/media';
+import type {AdminLocale} from '@/src/lib/admin-locale';
 
 type ProductTranslation = {
   locale: string;
@@ -34,14 +35,26 @@ type Category = {
   translations: {locale: string; name: string}[];
 };
 
+type PointRow = {
+  id: string;
+  label: string;
+  value: string;
+};
+
 const translationName = (translations: {locale: string; name: string}[], locale: 'en' | 'ar') =>
   translations.find((t) => t.locale === locale)?.name ?? '';
 
-const pointsToText = (translations: ProductTranslation[], locale: 'en' | 'ar') => {
+const createPointRow = (label = '', value = ''): PointRow => ({
+  id: Math.random().toString(36).slice(2),
+  label,
+  value
+});
+
+const pointsFromTranslations = (translations: ProductTranslation[], locale: 'en' | 'ar') => {
   const translation = translations.find((t) => t.locale === locale);
   const points = translation?.points;
-  if (!Array.isArray(points)) return '';
-  return points
+  if (!Array.isArray(points)) return [createPointRow()];
+  const rows = points
     .filter(
       (point): point is {label: string; value: string} =>
         typeof point === 'object' &&
@@ -51,9 +64,16 @@ const pointsToText = (translations: ProductTranslation[], locale: 'en' | 'ar') =
         typeof (point as {label: string}).label === 'string' &&
         typeof (point as {value: string}).value === 'string'
     )
-    .map((point) => `${point.label}: ${point.value}`)
-    .join('\n');
+    .map((point) => createPointRow(point.label, point.value));
+  return rows.length > 0 ? rows : [createPointRow()];
 };
+
+const pointsToPayload = (rows: PointRow[]) =>
+  rows
+    .map((row) => ({label: row.label.trim(), value: row.value.trim()}))
+    .filter((row) => row.label && row.value)
+    .map((row) => `${row.label}: ${row.value}`)
+    .join('\n');
 
 type ProductFormState = {
   slug: string;
@@ -64,12 +84,21 @@ type ProductFormState = {
   featuredOrder: string;
   nameEn: string;
   nameAr: string;
-  pointsEn: string;
-  pointsAr: string;
+  pointsEn: PointRow[];
+  pointsAr: PointRow[];
 };
 
-export function ProductsManager({products, categories}: {products: Product[]; categories: Category[]}) {
+export function ProductsManager({
+  products,
+  categories,
+  locale
+}: {
+  products: Product[];
+  categories: Category[];
+  locale: AdminLocale;
+}) {
   const router = useRouter();
+  const isArabic = locale === 'ar';
   const [mediaFiles, setMediaFiles] = useState<FileList | null>(null);
   const buildEmptyForm = (): ProductFormState => ({
     slug: '',
@@ -80,8 +109,8 @@ export function ProductsManager({products, categories}: {products: Product[]; ca
     featuredOrder: '',
     nameEn: '',
     nameAr: '',
-    pointsEn: '',
-    pointsAr: ''
+    pointsEn: [createPointRow()],
+    pointsAr: [createPointRow()]
   });
   const [form, setForm] = useState<ProductFormState>(() => buildEmptyForm());
   const [editingProductId, setEditingProductId] = useState<number | null>(null);
@@ -106,8 +135,8 @@ export function ProductsManager({products, categories}: {products: Product[]; ca
       featuredOrder: product.featuredOrder?.toString() ?? '',
       nameEn: translationName(product.translations, 'en'),
       nameAr: translationName(product.translations, 'ar'),
-      pointsEn: pointsToText(product.translations, 'en'),
-      pointsAr: pointsToText(product.translations, 'ar')
+      pointsEn: pointsFromTranslations(product.translations, 'en'),
+      pointsAr: pointsFromTranslations(product.translations, 'ar')
     });
     setEditingProductId(product.id);
     setMediaFiles(null);
@@ -126,8 +155,8 @@ export function ProductsManager({products, categories}: {products: Product[]; ca
     formData.append('featuredOrder', form.featuredOrder);
     formData.append('name_en', form.nameEn);
     formData.append('name_ar', form.nameAr);
-    formData.append('points_en', form.pointsEn);
-    formData.append('points_ar', form.pointsAr);
+    formData.append('points_en', pointsToPayload(form.pointsEn));
+    formData.append('points_ar', pointsToPayload(form.pointsAr));
     if (mediaFiles) {
       Array.from(mediaFiles).forEach((file) => formData.append('media', file));
     }
@@ -161,37 +190,68 @@ export function ProductsManager({products, categories}: {products: Product[]; ca
 
   const cancelEdit = () => resetForm();
 
+  const updatePoint = (
+    locale: 'pointsEn' | 'pointsAr',
+    id: string,
+    field: 'label' | 'value',
+    value: string
+  ) => {
+    setForm((prev) => ({
+      ...prev,
+      [locale]: prev[locale].map((point) => (point.id === id ? {...point, [field]: value} : point))
+    }));
+  };
+
+  const addPoint = (locale: 'pointsEn' | 'pointsAr') => {
+    setForm((prev) => ({
+      ...prev,
+      [locale]: [...prev[locale], createPointRow()]
+    }));
+  };
+
+  const removePoint = (locale: 'pointsEn' | 'pointsAr', id: string) => {
+    setForm((prev) => {
+      const nextPoints = prev[locale].filter((point) => point.id !== id);
+      return {
+        ...prev,
+        [locale]: nextPoints.length > 0 ? nextPoints : [createPointRow()]
+      };
+    });
+  };
+
   return (
     <div className="space-y-6">
       <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">{isEditing ? 'Edit product' : 'Create product'}</h2>
+          <h2 className="text-lg font-semibold">
+            {isEditing ? (isArabic ? 'تعديل المنتج' : 'Edit product') : isArabic ? 'إضافة منتج' : 'Create product'}
+          </h2>
           {isEditing && (
             <Button type="button" variant="ghost" onClick={cancelEdit}>
-              Cancel edit
+              {isArabic ? 'إلغاء التعديل' : 'Cancel edit'}
             </Button>
           )}
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <Label>Slug</Label>
+            <Label>{isArabic ? 'المعرّف' : 'Slug'}</Label>
             <Input value={form.slug} onChange={(event) => setForm((prev) => ({...prev, slug: event.target.value}))} />
           </div>
           <div>
-            <Label>Category</Label>
+            <Label>{isArabic ? 'الفئة' : 'Category'}</Label>
             <Select
               value={String(form.categoryId)}
               onChange={(event) => setForm((prev) => ({...prev, categoryId: Number(event.target.value)}))}
             >
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
-                  {translationName(category.translations, 'en')}
+                  {translationName(category.translations, isArabic ? 'ar' : 'en')}
                 </option>
               ))}
             </Select>
           </div>
           <div>
-            <Label>Sort order</Label>
+            <Label>{isArabic ? 'ترتيب الظهور' : 'Sort order'}</Label>
             <Input
               type="number"
               value={form.sortOrder}
@@ -199,38 +259,38 @@ export function ProductsManager({products, categories}: {products: Product[]; ca
             />
           </div>
           <div>
-            <Label>Status</Label>
+            <Label>{isArabic ? 'الحالة' : 'Status'}</Label>
             <Select
               value={form.isActive}
               onChange={(event) =>
                 setForm((prev) => ({...prev, isActive: event.target.value as ProductFormState['isActive']}))
               }
             >
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
+              <option value="true">{isArabic ? 'نشط' : 'Active'}</option>
+              <option value="false">{isArabic ? 'غير نشط' : 'Inactive'}</option>
             </Select>
           </div>
           <div>
-            <Label>Featured</Label>
+            <Label>{isArabic ? 'مميز' : 'Featured'}</Label>
             <Select
               value={form.isFeatured}
               onChange={(event) =>
                 setForm((prev) => ({...prev, isFeatured: event.target.value as ProductFormState['isFeatured']}))
               }
             >
-              <option value="false">No</option>
-              <option value="true">Yes</option>
+              <option value="false">{isArabic ? 'لا' : 'No'}</option>
+              <option value="true">{isArabic ? 'نعم' : 'Yes'}</option>
             </Select>
           </div>
           <div>
-            <Label>Featured order</Label>
+            <Label>{isArabic ? 'ترتيب المميز' : 'Featured order'}</Label>
             <Input
               value={form.featuredOrder}
               onChange={(event) => setForm((prev) => ({...prev, featuredOrder: event.target.value}))}
             />
           </div>
           <div>
-            <Label>Images</Label>
+            <Label>{isArabic ? 'الصور' : 'Images'}</Label>
             <Input type="file" multiple accept=".jpg,.jpeg,.png,.webp" onChange={(event) => setMediaFiles(event.target.files)} />
           </div>
           {isEditing && (
@@ -241,14 +301,16 @@ export function ProductsManager({products, categories}: {products: Product[]; ca
                   checked={replaceMedia}
                   onChange={(event) => setReplaceMedia(event.target.checked)}
                 />
-                Replace existing gallery with newly uploaded files
+                {isArabic
+                  ? 'استبدال الصور الحالية بالصور الجديدة المرفوعة'
+                  : 'Replace existing gallery with newly uploaded files'}
               </label>
             </div>
           )}
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <Label>Name (EN)</Label>
+            <Label>{isArabic ? 'الاسم (EN)' : 'Name (EN)'}</Label>
             <Input value={form.nameEn} onChange={(event) => setForm((prev) => ({...prev, nameEn: event.target.value}))} />
           </div>
           <div>
@@ -256,22 +318,73 @@ export function ProductsManager({products, categories}: {products: Product[]; ca
             <Input value={form.nameAr} onChange={(event) => setForm((prev) => ({...prev, nameAr: event.target.value}))} />
           </div>
           <div>
-            <Label>Points (EN)</Label>
-            <Textarea value={form.pointsEn} onChange={(event) => setForm((prev) => ({...prev, pointsEn: event.target.value}))} />
-            <p className="text-xs text-muted-foreground">One detail per line using Label: Value</p>
+            <Label>{isArabic ? 'النقاط (EN)' : 'Points (EN)'}</Label>
+            <div className="space-y-3">
+              {form.pointsEn.map((point) => (
+                <div key={point.id} className="grid gap-2 md:grid-cols-[1fr_1fr_auto]">
+                  <Input
+                    placeholder={isArabic ? 'العنوان' : 'Label'}
+                    value={point.label}
+                    onChange={(event) => updatePoint('pointsEn', point.id, 'label', event.target.value)}
+                  />
+                  <Input
+                    placeholder={isArabic ? 'القيمة' : 'Value'}
+                    value={point.value}
+                    onChange={(event) => updatePoint('pointsEn', point.id, 'value', event.target.value)}
+                  />
+                  <Button type="button" variant="ghost" onClick={() => removePoint('pointsEn', point.id)}>
+                    {isArabic ? 'حذف' : 'Remove'}
+                  </Button>
+                </div>
+              ))}
+              <Button type="button" variant="outline" onClick={() => addPoint('pointsEn')}>
+                {isArabic ? 'إضافة نقطة' : 'Add point'}
+              </Button>
+            </div>
           </div>
           <div>
             <Label>ملاحظات (AR)</Label>
-            <Textarea value={form.pointsAr} onChange={(event) => setForm((prev) => ({...prev, pointsAr: event.target.value}))} />
+            <div className="space-y-3">
+              {form.pointsAr.map((point) => (
+                <div key={point.id} className="grid gap-2 md:grid-cols-[1fr_1fr_auto]">
+                  <Input
+                    placeholder="العنوان"
+                    value={point.label}
+                    onChange={(event) => updatePoint('pointsAr', point.id, 'label', event.target.value)}
+                  />
+                  <Input
+                    placeholder="القيمة"
+                    value={point.value}
+                    onChange={(event) => updatePoint('pointsAr', point.id, 'value', event.target.value)}
+                  />
+                  <Button type="button" variant="ghost" onClick={() => removePoint('pointsAr', point.id)}>
+                    {isArabic ? 'حذف' : 'Remove'}
+                  </Button>
+                </div>
+              ))}
+              <Button type="button" variant="outline" onClick={() => addPoint('pointsAr')}>
+                {isArabic ? 'إضافة نقطة' : 'Add point'}
+              </Button>
+            </div>
           </div>
         </div>
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Saving…' : isEditing ? 'Update product' : 'Save product'}
+          {isSubmitting
+            ? isArabic
+              ? 'جارٍ الحفظ...'
+              : 'Saving...'
+            : isEditing
+              ? isArabic
+                ? 'حفظ التعديلات'
+                : 'Update product'
+              : isArabic
+                ? 'حفظ المنتج'
+                : 'Save product'}
         </Button>
       </form>
 
       <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6">
-        <h2 className="text-lg font-semibold">Products</h2>
+        <h2 className="text-lg font-semibold">{isArabic ? 'المنتجات' : 'Products'}</h2>
         <div className="grid gap-4 md:grid-cols-2">
           {products.map((product) => (
             <div key={product.id} className="rounded-xl border border-slate-200 p-4">
@@ -279,15 +392,15 @@ export function ProductsManager({products, categories}: {products: Product[]; ca
                 <span>{product.slug}</span>
                 <div className="flex gap-1">
                   <Button type="button" variant="ghost" size="sm" onClick={() => populateForm(product)}>
-                    Edit
+                    {isArabic ? 'تعديل' : 'Edit'}
                   </Button>
                   <Button type="button" variant="ghost" size="sm" onClick={() => deleteProduct(product.id)}>
-                    Delete
+                    {isArabic ? 'حذف' : 'Delete'}
                   </Button>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground">
-                {translationName(product.translations, 'en')} · {product.category.slug}
+                {translationName(product.translations, isArabic ? 'ar' : 'en')} · {product.category.slug}
               </p>
               <div className="mt-3 flex gap-2">
                 {product.media.slice(0, 3).map((media) => (

@@ -8,6 +8,7 @@ import {Input} from '@/src/components/ui/input';
 import {Label} from '@/src/components/ui/label';
 import {Select} from '@/src/components/ui/select';
 import {asUploadUrl} from '@/src/lib/media';
+import type {AdminLocale} from '@/src/lib/admin-locale';
 
 type HeroImage = {
   id: number;
@@ -30,8 +31,9 @@ const mapFromImages = (images: HeroImage[]): EditMap =>
     return acc;
   }, {});
 
-export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
+export function HeroImagesManager({heroImages, locale}: {heroImages: HeroImage[]; locale: AdminLocale}) {
   const router = useRouter();
+  const isArabic = locale === 'ar';
   const [form, setForm] = useState({
     sortOrder: heroImages.length + 1,
     isActive: 'true'
@@ -109,14 +111,16 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
     <div className="space-y-8">
       <form onSubmit={handleCreate} className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6">
         <div>
-          <h2 className="text-lg font-semibold text-primary">Add hero imagery</h2>
+          <h2 className="text-lg font-semibold text-primary">{isArabic ? 'إضافة صور الهيرو' : 'Add hero imagery'}</h2>
           <p className="text-sm text-muted-foreground">
-            Upload vertical photos that will auto-scroll inside the home hero.
+            {isArabic
+              ? 'ارفع صوراً طولية ليتم تمريرها تلقائياً داخل هيرو الصفحة الرئيسية.'
+              : 'Upload vertical photos that will auto-scroll inside the home hero.'}
           </p>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <Label>Sort order</Label>
+            <Label>{isArabic ? 'ترتيب الظهور' : 'Sort order'}</Label>
             <Input
               type="number"
               value={form.sortOrder}
@@ -125,41 +129,45 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
             />
           </div>
           <div>
-            <Label>Status</Label>
+            <Label>{isArabic ? 'الحالة' : 'Status'}</Label>
             <Select
               value={form.isActive}
               onChange={(event) => setForm((prev) => ({...prev, isActive: event.target.value as 'true' | 'false'}))}
             >
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
+              <option value="true">{isArabic ? 'نشط' : 'Active'}</option>
+              <option value="false">{isArabic ? 'غير نشط' : 'Inactive'}</option>
             </Select>
           </div>
           <div className="md:col-span-2">
-            <Label>Image</Label>
+            <Label>{isArabic ? 'الصورة' : 'Image'}</Label>
             <Input
               type="file"
               accept=".jpg,.jpeg,.png,.webp"
               onChange={(event) => setHeroFile(event.target.files?.[0] ?? null)}
               required
             />
-            <p className="text-xs text-muted-foreground">Recommended size 1920×1080px (max 5MB).</p>
+            <p className="text-xs text-muted-foreground">
+              {isArabic ? 'المقاس المقترح 1920×1080 بحد أقصى 5MB.' : 'Recommended size 1920×1080px (max 5MB).'}
+            </p>
           </div>
         </div>
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Saving…' : 'Add hero image'}
+          {isSubmitting ? (isArabic ? 'جارٍ الحفظ...' : 'Saving...') : isArabic ? 'إضافة صورة الهيرو' : 'Add hero image'}
         </Button>
       </form>
 
       <div className="rounded-3xl border border-slate-200 bg-white p-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-primary">Current images</h2>
+          <h2 className="text-lg font-semibold text-primary">{isArabic ? 'الصور الحالية' : 'Current images'}</h2>
           <p className="text-xs uppercase text-muted-foreground">
             {heroImages.length} items
           </p>
         </div>
         <div className="mt-4 space-y-4">
           {heroImages.length === 0 && (
-            <p className="text-sm text-muted-foreground">No hero imagery yet. Upload your first showcase above.</p>
+            <p className="text-sm text-muted-foreground">
+              {isArabic ? 'لا توجد صور هيرو حالياً. ارفع أول صورة من الأعلى.' : 'No hero imagery yet. Upload your first showcase above.'}
+            </p>
           )}
           {heroImages.map((image) => {
             const editable = edits[image.id] ?? {sortOrder: image.sortOrder, isActive: image.isActive};
@@ -180,7 +188,7 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
                 <div className="flex-1 space-y-4">
                   <div className="grid gap-3 md:grid-cols-2">
                     <div>
-                      <Label className="text-xs uppercase text-muted-foreground">Sort order</Label>
+                      <Label className="text-xs uppercase text-muted-foreground">{isArabic ? 'ترتيب الظهور' : 'Sort order'}</Label>
                       <Input
                         type="number"
                         value={editable.sortOrder}
@@ -190,18 +198,18 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
                       />
                     </div>
                     <div>
-                      <Label className="text-xs uppercase text-muted-foreground">Status</Label>
+                      <Label className="text-xs uppercase text-muted-foreground">{isArabic ? 'الحالة' : 'Status'}</Label>
                       <Select
                         value={editable.isActive ? 'true' : 'false'}
                         onChange={(event) => updateEditField(image.id, 'isActive', event.target.value === 'true')}
                       >
-                        <option value="true">Active</option>
-                        <option value="false">Inactive</option>
+                        <option value="true">{isArabic ? 'نشط' : 'Active'}</option>
+                        <option value="false">{isArabic ? 'غير نشط' : 'Inactive'}</option>
                       </Select>
                     </div>
                   </div>
                   <div>
-                    <Label className="text-xs uppercase text-muted-foreground">Replace image</Label>
+                    <Label className="text-xs uppercase text-muted-foreground">{isArabic ? 'استبدال الصورة' : 'Replace image'}</Label>
                     <Input
                       type="file"
                       accept=".jpg,.jpeg,.png,.webp"
@@ -213,15 +221,15 @@ export function HeroImagesManager({heroImages}: {heroImages: HeroImage[]}) {
                       }
                     />
                     <p className="mt-1 text-xs text-muted-foreground">
-                      Leave empty to keep the current image.
+                      {isArabic ? 'اترك الحقل فارغاً للإبقاء على الصورة الحالية.' : 'Leave empty to keep the current image.'}
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <Button type="button" onClick={() => handleSave(image.id)}>
-                      Save
+                      {isArabic ? 'حفظ' : 'Save'}
                     </Button>
                     <Button type="button" variant="ghost" onClick={() => deleteImage(image.id)}>
-                      Delete
+                      {isArabic ? 'حذف' : 'Delete'}
                     </Button>
                   </div>
                 </div>

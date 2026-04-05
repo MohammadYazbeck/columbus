@@ -5,6 +5,7 @@ import {useState} from 'react';
 import {Button} from '@/src/components/ui/button';
 import {Input} from '@/src/components/ui/input';
 import {Label} from '@/src/components/ui/label';
+import type {AdminLocale} from '@/src/lib/admin-locale';
 
 type Category = {
   id: number;
@@ -25,8 +26,9 @@ type CategoryFormState = {
 const localeName = (translations: Category['translations'], locale: 'en' | 'ar') =>
   translations.find((t) => t.locale === locale)?.name ?? '';
 
-export function CategoriesManager({categories}: {categories: Category[]}) {
+export function CategoriesManager({categories, locale}: {categories: Category[]; locale: AdminLocale}) {
   const router = useRouter();
+  const isArabic = locale === 'ar';
   const buildEmptyForm = (): CategoryFormState => ({
     slug: '',
     sortOrder: 1,
@@ -79,19 +81,19 @@ export function CategoriesManager({categories}: {categories: Category[]}) {
     <div className="space-y-8">
       <form onSubmit={submitCategory} className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-2">
         <div className="md:col-span-2 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">{isEditing ? 'Edit category' : 'Create category'}</h2>
+          <h2 className="text-lg font-semibold">{isEditing ? (isArabic ? 'تعديل الفئة' : 'Edit category') : isArabic ? 'إضافة فئة' : 'Create category'}</h2>
           {isEditing && (
             <Button type="button" variant="ghost" onClick={resetForm}>
-              Cancel edit
+              {isArabic ? 'إلغاء التعديل' : 'Cancel edit'}
             </Button>
           )}
         </div>
         <div>
-          <Label>Slug</Label>
+          <Label>{isArabic ? 'المعرّف' : 'Slug'}</Label>
           <Input value={form.slug} onChange={(event) => setForm((prev) => ({...prev, slug: event.target.value}))} />
         </div>
         <div>
-          <Label>Sort order</Label>
+          <Label>{isArabic ? 'ترتيب الظهور' : 'Sort order'}</Label>
           <Input
             type="number"
             value={form.sortOrder}
@@ -99,14 +101,14 @@ export function CategoriesManager({categories}: {categories: Category[]}) {
           />
         </div>
         <div>
-          <Label>Status</Label>
+          <Label>{isArabic ? 'الحالة' : 'Status'}</Label>
           <select
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             value={form.isActive}
             onChange={(event) => setForm((prev) => ({...prev, isActive: event.target.value as 'true' | 'false'}))}
           >
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
+            <option value="true">{isArabic ? 'نشط' : 'Active'}</option>
+            <option value="false">{isArabic ? 'غير نشط' : 'Inactive'}</option>
           </select>
         </div>
         <div>
@@ -118,7 +120,7 @@ export function CategoriesManager({categories}: {categories: Category[]}) {
           <Input value={form.nameAr} onChange={(event) => setForm((prev) => ({...prev, nameAr: event.target.value}))} />
         </div>
         <div className="md:col-span-2">
-          <Button type="submit">{isEditing ? 'Update category' : 'Create category'}</Button>
+          <Button type="submit">{isEditing ? (isArabic ? 'حفظ التعديلات' : 'Update category') : isArabic ? 'إضافة الفئة' : 'Create category'}</Button>
         </div>
       </form>
 
@@ -126,10 +128,10 @@ export function CategoriesManager({categories}: {categories: Category[]}) {
         <table className="min-w-full text-sm">
           <thead>
             <tr className="text-left">
-              <th className="px-4 py-3">Slug</th>
-              <th className="px-4 py-3">Name (EN)</th>
-              <th className="px-4 py-3">Name (AR)</th>
-              <th className="px-4 py-3">Sort</th>
+              <th className="px-4 py-3">{isArabic ? 'المعرّف' : 'Slug'}</th>
+              <th className="px-4 py-3">{isArabic ? 'الاسم (EN)' : 'Name (EN)'}</th>
+              <th className="px-4 py-3">{isArabic ? 'الاسم (AR)' : 'Name (AR)'}</th>
+              <th className="px-4 py-3">{isArabic ? 'الترتيب' : 'Sort'}</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -143,10 +145,10 @@ export function CategoriesManager({categories}: {categories: Category[]}) {
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-1">
                     <Button type="button" variant="ghost" onClick={() => populateForm(category)}>
-                      Edit
+                      {isArabic ? 'تعديل' : 'Edit'}
                     </Button>
                     <Button type="button" variant="ghost" onClick={() => deleteCategory(category.id)}>
-                      Delete
+                      {isArabic ? 'حذف' : 'Delete'}
                     </Button>
                   </div>
                 </td>

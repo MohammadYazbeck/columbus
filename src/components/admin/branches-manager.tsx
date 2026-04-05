@@ -7,6 +7,7 @@ import {Input} from '@/src/components/ui/input';
 import {Label} from '@/src/components/ui/label';
 import {Textarea} from '@/src/components/ui/textarea';
 import {asUploadUrl} from '@/src/lib/media';
+import type {AdminLocale} from '@/src/lib/admin-locale';
 
 type Branch = {
   id: number;
@@ -44,8 +45,9 @@ const normalizeEmbedUrl = (value: string) => {
   return match ? match[1] : trimmed;
 };
 
-export function BranchesManager({branches}: {branches: Branch[]}) {
+export function BranchesManager({branches, locale}: {branches: Branch[]; locale: AdminLocale}) {
   const router = useRouter();
+  const isArabic = locale === 'ar';
   const buildEmptyForm = (): BranchFormState => ({
     nameEn: '',
     addressEn: '',
@@ -120,15 +122,15 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
     <div className="space-y-6">
       <form onSubmit={submit} className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-2">
         <div className="md:col-span-2 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">{isEditing ? 'Edit branch' : 'Create branch'}</h2>
+          <h2 className="text-lg font-semibold">{isEditing ? (isArabic ? 'تعديل الفرع' : 'Edit branch') : isArabic ? 'إضافة فرع' : 'Create branch'}</h2>
           {isEditing && (
             <Button type="button" variant="ghost" onClick={resetForm}>
-              Cancel edit
+              {isArabic ? 'إلغاء التعديل' : 'Cancel edit'}
             </Button>
           )}
         </div>
         <div>
-          <Label>Name (EN)</Label>
+          <Label>{isArabic ? 'الاسم (EN)' : 'Name (EN)'}</Label>
           <Input value={form.nameEn} onChange={(event) => setForm((prev) => ({...prev, nameEn: event.target.value}))} />
         </div>
         <div>
@@ -136,7 +138,7 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
           <Input value={form.nameAr} onChange={(event) => setForm((prev) => ({...prev, nameAr: event.target.value}))} />
         </div>
         <div>
-          <Label>Address (EN)</Label>
+          <Label>{isArabic ? 'العنوان (EN)' : 'Address (EN)'}</Label>
           <Textarea value={form.addressEn} onChange={(event) => setForm((prev) => ({...prev, addressEn: event.target.value}))} />
         </div>
         <div>
@@ -144,42 +146,45 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
           <Textarea value={form.addressAr} onChange={(event) => setForm((prev) => ({...prev, addressAr: event.target.value}))} />
         </div>
         <div>
-          <Label>{isEditing ? 'Replace branch image' : 'Branch image'}</Label>
+          <Label>{isEditing ? (isArabic ? 'استبدال صورة الفرع' : 'Replace branch image') : isArabic ? 'صورة الفرع' : 'Branch image'}</Label>
           <Input
             type="file"
             accept=".jpg,.jpeg,.png,.webp"
             onChange={(event) => setImageFile(event.target.files?.[0] ?? null)}
           />
           <p className="text-xs text-muted-foreground">
-            Uploads to the same server storage used by product images.
-            {isEditing ? ' Leave empty to keep the current image.' : ''}
+            {isArabic
+              ? `يتم الرفع إلى نفس التخزين المستخدم لصور المنتجات.${isEditing ? ' اترك الحقل فارغاً للإبقاء على الصورة الحالية.' : ''}`
+              : `Uploads to the same server storage used by product images.${isEditing ? ' Leave empty to keep the current image.' : ''}`}
           </p>
         </div>
         <div>
-          <Label>Google embed URL</Label>
+          <Label>{isArabic ? 'رابط تضمين Google' : 'Google embed URL'}</Label>
           <Input value={form.googleEmbedUrl} onChange={(event) => setForm((prev) => ({...prev, googleEmbedUrl: event.target.value}))} />
           <p className="text-xs text-muted-foreground">
-            Paste the iframe URL from Google Maps (Share → Embed a map).
+            {isArabic
+              ? 'الصق رابط iframe من خرائط Google (مشاركة ← تضمين خريطة).'
+              : 'Paste the iframe URL from Google Maps (Share → Embed a map).'}
           </p>
         </div>
         <div>
-          <Label>Directions URL</Label>
+          <Label>{isArabic ? 'رابط الاتجاهات' : 'Directions URL'}</Label>
           <Input value={form.directionsUrl} onChange={(event) => setForm((prev) => ({...prev, directionsUrl: event.target.value}))} />
         </div>
         <div>
-          <Label>Phone</Label>
+          <Label>{isArabic ? 'الهاتف' : 'Phone'}</Label>
           <Input value={form.phone} onChange={(event) => setForm((prev) => ({...prev, phone: event.target.value}))} />
         </div>
         <div>
-          <Label>Mobile</Label>
+          <Label>{isArabic ? 'الجوال' : 'Mobile'}</Label>
           <Input value={form.mobile} onChange={(event) => setForm((prev) => ({...prev, mobile: event.target.value}))} />
         </div>
         <div>
-          <Label>Email</Label>
+          <Label>{isArabic ? 'البريد الإلكتروني' : 'Email'}</Label>
           <Input value={form.email} onChange={(event) => setForm((prev) => ({...prev, email: event.target.value}))} />
         </div>
         <div>
-          <Label>Sort order</Label>
+          <Label>{isArabic ? 'ترتيب الظهور' : 'Sort order'}</Label>
           <Input
             type="number"
             value={form.sortOrder}
@@ -187,7 +192,7 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
           />
         </div>
         <div className="md:col-span-2">
-          <Button type="submit">{isEditing ? 'Update branch' : 'Create branch'}</Button>
+          <Button type="submit">{isEditing ? (isArabic ? 'حفظ التعديلات' : 'Update branch') : isArabic ? 'إضافة الفرع' : 'Create branch'}</Button>
         </div>
       </form>
 
@@ -196,16 +201,16 @@ export function BranchesManager({branches}: {branches: Branch[]}) {
           <div key={branch.id} className="rounded-2xl border border-slate-200 bg-white p-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-semibold">{getTranslation(branch, 'en')?.name}</h3>
+                <h3 className="text-lg font-semibold">{getTranslation(branch, isArabic ? 'ar' : 'en')?.name}</h3>
                 <p className="text-xs text-muted-foreground">{branch.googleEmbedUrl.slice(0, 40)}...</p>
               </div>
               <div className="flex gap-1">
-                <Button type="button" variant="ghost" onClick={() => populateForm(branch)}>
-                  Edit
-                </Button>
-                <Button type="button" variant="ghost" onClick={() => deleteBranch(branch.id)}>
-                  Delete
-                </Button>
+                    <Button type="button" variant="ghost" onClick={() => populateForm(branch)}>
+                      {isArabic ? 'تعديل' : 'Edit'}
+                    </Button>
+                    <Button type="button" variant="ghost" onClick={() => deleteBranch(branch.id)}>
+                      {isArabic ? 'حذف' : 'Delete'}
+                    </Button>
               </div>
             </div>
             {branch.imagePath && (
