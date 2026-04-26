@@ -33,7 +33,7 @@ export const aboutNarrative: Record<Locale, string[]> = {
 export const aboutHighlights = [
   {
     id: 'legacy',
-    image: '/about/about-01.jpg',
+    image: '/about/about-001.jpg',
     title: {
       en: 'A Ritual Born in Milan',
       ar: 'طقس وُلد في ميلانو'
@@ -45,7 +45,7 @@ export const aboutHighlights = [
   },
   {
     id: 'expansion',
-    image: '/about/about-02.jpg',
+    image: '/about/about-002.jpg',
     title: {
       en: 'A Roastery Home in Syria',
       ar: 'موطن التحميص في سوريا'
@@ -57,7 +57,7 @@ export const aboutHighlights = [
   },
   {
     id: 'strategy',
-    image: '/about/about-03.jpg',
+    image: '/about/about-003.jpg',
     title: {
       en: 'Three Experiences, One Promise',
       ar: 'ثلاث تجارب، وعد واحد'
