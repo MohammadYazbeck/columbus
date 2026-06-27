@@ -4,7 +4,7 @@ import {prisma} from '@/src/lib/prisma';
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://colombus.local';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://columbus.local';
   const locales: ('en' | 'ar')[] = ['en', 'ar'];
   const categories = await prisma.category.findMany({select: {slug: true}});
   const products = await prisma.product.findMany({select: {slug: true}});

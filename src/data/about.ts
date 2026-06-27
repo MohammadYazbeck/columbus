@@ -8,11 +8,11 @@ export const aboutIntro = {
     ar: 'أهلاً بكم في المقهى'
   } as Translated,
   title: {
-    en: 'Colombus Coffee',
+    en: 'Columbus Coffee',
     ar: 'قهوة كولومبوس'
   } as Translated,
   lead: {
-    en: 'Since 1990 in Milan, we’ve been roasting with care, then carried that ritual to Bucharest in 1992. Our King, San Cristobal, Kenana, and Colombus labels were created to deliver coffeehouse warmth, consistent quality, and business confidence in every cup.',
+    en: 'Since 1990 in Milan, we’ve been roasting with care, then carried that ritual to Bucharest in 1992. Our King, San Cristobal, Kenana, and Columbus labels were created to deliver coffeehouse warmth, consistent quality, and business confidence in every cup.',
     ar: 'منذ عام 1990 في ميلانو نُحمّص القهوة بعناية، ثم نقلنا هذا الطقس إلى بوخارست عام 1992. صُممت علامات كينغ وسان كريستوبال وكنانة وكولومبوس لتقدّم دفء المقهى وجودة ثابتة وثقة تجارية في كل كوب.'
   } as Translated
 };
@@ -21,7 +21,7 @@ export const aboutNarrative: Record<Locale, string[]> = {
   en: [
     'We started with a single roastery and a simple promise: serve coffee that feels calm, familiar, and refined. Each cup is built on balance and a clean finish.',
     'In 2001, our Middle East roastery opened in Syria, alongside boutique cafes. We served espresso classics with quiet precision and a warm welcome.',
-    'Today, ready-to-craft beverages, fresh-coffee retail, and Colombus coffeehouses work as one—elegant, consistent, and built to last.'
+    'Today, ready-to-craft beverages, fresh-coffee retail, and Columbus coffeehouses work as one—elegant, consistent, and built to last.'
   ],
   ar: [
     'بدأنا بمحمصة واحدة ووعد بسيط: قهوة هادئة، مألوفة، وراقية. كل كوب قائم على توازن ونهاية نقية.',
@@ -92,7 +92,7 @@ export const aboutPillars = [
   },
   {
     title: {
-      en: 'Colombus Coffeehouse',
+      en: 'Columbus Coffeehouse',
       ar: 'مقهى كولومبوس'
     } as Translated,
     detail: {

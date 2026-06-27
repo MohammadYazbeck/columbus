@@ -41,7 +41,7 @@ export default async function ContactPage({params}: Props) {
             {locale === 'ar' ? 'السوشال ميديا' : 'Social media'}
           </p>
           <h2 className="text-2xl font-semibold text-primary">
-            {locale === 'ar' ? 'تابع كولومبوس' : 'Follow Colombus'}
+            {locale === 'ar' ? 'تابع كولومبوس' : 'Follow Columbus'}
           </h2>
         </div>
         <div className="mt-5 flex flex-wrap gap-3">

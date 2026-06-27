@@ -65,7 +65,7 @@ export function Navbar({ locale, messages, categories }: Props) {
             className="h-16 w-auto object-contain"
             priority
           />
-          <span className="sr-only">Colombus Coffee</span>
+          <span className="sr-only">Columbus Coffee</span>
         </Link>
         <nav className="hidden items-center gap-8 text-sm font-medium text-muted-foreground md:flex">
           {navItems.map((item) => {

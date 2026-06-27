@@ -22,7 +22,7 @@ export default async function BranchesPage({params}: Props) {
             {isArabic ? 'فروعنا' : 'Our Locations'}
           </p>
           <h1 className="text-4xl font-semibold text-[#17120f] md:text-5xl">
-            {isArabic ? 'مقاهي كولومبوس' : 'Colombus Coffeehouses'}
+            {isArabic ? 'مقاهي كولومبوس' : 'Columbus Coffeehouses'}
           </h1>
           <p className="max-w-3xl text-sm text-[#4f4337] md:text-base">
             {isArabic

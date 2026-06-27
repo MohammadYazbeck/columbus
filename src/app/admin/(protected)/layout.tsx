@@ -35,7 +35,7 @@ export default function AdminProtectedLayout({children}: Props) {
     <div dir={dir} className="flex min-h-screen bg-slate-50">
       <aside className="hidden w-64 flex-col border-r border-slate-200 bg-white/90 p-6 md:flex">
         <div className="text-xl font-semibold text-primary">
-          {isArabic ? 'لوحة تحكم كولومبوس' : 'Colombus Admin'}
+          {isArabic ? 'لوحة تحكم كولومبوس' : 'Columbus Admin'}
         </div>
         <nav className="mt-8 space-y-2 text-sm font-medium">
           {navItems.map((item) => (

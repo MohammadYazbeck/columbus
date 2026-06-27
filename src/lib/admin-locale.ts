@@ -2,7 +2,7 @@ import {cookies} from 'next/headers';
 
 export type AdminLocale = 'en' | 'ar';
 
-export const ADMIN_LOCALE_COOKIE = 'colombus_admin_locale';
+export const ADMIN_LOCALE_COOKIE = 'columbus_admin_locale';
 
 export function getAdminLocale(): AdminLocale {
   const locale = cookies().get(ADMIN_LOCALE_COOKIE)?.value;

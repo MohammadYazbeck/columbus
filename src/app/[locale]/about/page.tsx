@@ -61,7 +61,7 @@ export default function AboutPage({ params }: Props) {
               {aboutIntro.lead[lang]}
             </p>
             <p className="text-[11px] font-semibold uppercase  text-[#ab1d1d] md:text-xs">
-              {lang === 'ar' ? 'كولومبوس' : 'Colombus Roastery'}
+              {lang === 'ar' ? 'كولومبوس' : 'Columbus Roastery'}
             </p>
 
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-[11px] uppercase text-[#ab1d1d] md:text-xs">

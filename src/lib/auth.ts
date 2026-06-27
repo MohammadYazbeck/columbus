@@ -3,7 +3,7 @@ import {redirect} from 'next/navigation';
 import {createHmac, timingSafeEqual} from 'crypto';
 import type {AdminUser} from '@prisma/client';
 
-const COOKIE_NAME = 'colombus_admin';
+const COOKIE_NAME = 'columbus_admin';
 
 type SessionPayload = {
   userId: number;

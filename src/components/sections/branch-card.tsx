@@ -67,7 +67,7 @@ export function BranchCard({branch, locale}: Props) {
           />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent px-6 pb-6 pt-14 text-white">
             <p className="text-xs uppercase text-white/75">
-              {isArabic ? 'مقهى كولومبوس' : 'Colombus Coffeehouse'}
+              {isArabic ? 'مقهى كولومبوس' : 'Columbus Coffeehouse'}
             </p>
             <h3 className="text-2xl font-semibold md:text-3xl">{branch.translation.name}</h3>
           </div>

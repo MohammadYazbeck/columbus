@@ -41,7 +41,7 @@ export function AdminLoginForm({locale}: {locale: AdminLocale}) {
       >
         <div className="flex items-center justify-between gap-4">
           <h1 className="text-2xl font-semibold text-primary">
-            {isArabic ? 'لوحة تحكم كولومبوس' : 'Colombus Admin'}
+            {isArabic ? 'لوحة تحكم كولومبوس' : 'Columbus Admin'}
           </h1>
           <AdminLocaleSwitcher locale={locale} />
         </div>

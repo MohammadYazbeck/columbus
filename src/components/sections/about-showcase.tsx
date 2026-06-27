@@ -37,8 +37,8 @@ export function AboutShowcase({ locale }: Props) {
       ? { label: 'الأسواق النشطة', value: '18' }
       : { label: 'Active markets', value: '18' },
     lang === 'ar'
-      ? { label: 'سلسلة القهوة', value: 'Colombus' }
-      : { label: 'Coffee chain', value: 'Colombus' }
+      ? { label: 'سلسلة القهوة', value: 'Columbus' }
+      : { label: 'Coffee chain', value: 'Columbus' }
   ];
 
   return (

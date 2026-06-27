@@ -1,6 +1,6 @@
-# Colombus Coffee Catalog
+# Columbus Coffee Catalog
 
-Luxury-forward, bilingual (English/Arabic) catalog experience for the Colombus coffee brand built with Next.js App Router, TailwindCSS, shadcn/ui, Prisma (PostgreSQL), and next-intl. Includes a full public site plus an admin dashboard with category/product/branch/career management and request inboxes.
+Luxury-forward, bilingual (English/Arabic) catalog experience for the Columbus coffee brand built with Next.js App Router, TailwindCSS, shadcn/ui, Prisma (PostgreSQL), and next-intl. Includes a full public site plus an admin dashboard with category/product/branch/career management and request inboxes.
 
 ## Features
 
@@ -21,7 +21,7 @@ Luxury-forward, bilingual (English/Arabic) catalog experience for the Colombus c
 
 2. **Configure environment**
    - Copy `.env.example` to `.env` and update:
-     - `DATABASE_URL` – PostgreSQL connection string (e.g. `postgresql://user:pass@localhost:5432/colombus?schema=public`).
+     - `DATABASE_URL` – PostgreSQL connection string (e.g. `postgresql://user:pass@localhost:5432/columbus?schema=public`).
      - `SESSION_SECRET` – long random string used to sign admin cookies.
      - `UPLOAD_DIR` – absolute OS path *outside* the repo, e.g. `D:/hostinger/uploads`.
      - `ENABLE_CAPTCHA` – leave `false` for dev; when `true`, server routes expect a `captchaToken`.
@@ -38,7 +38,7 @@ Luxury-forward, bilingual (English/Arabic) catalog experience for the Colombus c
    npx prisma migrate dev
    npm run prisma:seed
    ```
-   Make sure your PostgreSQL server is running and the `colombus` database exists (e.g. `createdb -O my_user colombus` before migrating).
+   Make sure your PostgreSQL server is running and the `columbus` database exists (e.g. `createdb -O my_user columbus` before migrating).
    Seeds will create:
    - Admin user `admin` / `admin123`
    - 2 categories, 6 products with translations/media, 2 branches, 2 career slots

@@ -17,7 +17,7 @@ services:
       - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.colombus.rule=Host(`columbus-coffee.com`)"
+      - "traefik.http.routers.colombus.rule=Host(`columbus-coffee.com`) || Host(`columbus-co.com`)"
       - "traefik.http.routers.colombus.entrypoints=websecure"
       - "traefik.http.routers.colombus.tls=true"
       - "traefik.http.routers.colombus.tls.certresolver=lets"
